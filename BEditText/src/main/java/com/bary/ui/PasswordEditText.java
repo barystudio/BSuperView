@@ -15,7 +15,7 @@ import com.bary.ui.R;
 /**
  * Created by 家杰 on 2015/11/20.
  */
-public class PasswordEditText extends com.bary.littlebit.basicview.ClearEditText {
+public class PasswordEditText extends ClearEditText {
 
     //资源
     private final int INVISIBLE = R.drawable.fty_edit_icon_invisible;
