@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!--自定义View 公用样式-->
+    <!--阴影的圆角大小-->
+    <attr name="roundRadius" format="dimension" />
+    <attr name="topLeftRadius" format="dimension" />
+    <attr name="topRightRadius" format="dimension" />
+    <attr name="bottomLeftRadius" format="dimension" />
+    <attr name="bottomRightRadius" format="dimension" />
+    <attr name="backgroundColor" format="color" />
+    <!--下面是否显示阴影-->
+    <!--阴影的扩散范围(也可以理解为扩散程度)-->
+    <attr name="shadowSize" format="dimension" />
+    <attr name="shadowColor" format="color" />
+    <!--x轴的偏移量-->
+    <attr name="shadowDx" format="dimension" />
+    <!--y轴的偏移量-->
+    <attr name="shadowDy" format="dimension" />
+    <!--  是否要显示应用，可能有只想用shape这块，不想要阴影-->
+    <attr name="showShadow" format="boolean" />
+    <!--是否要显示描边-->
+    <attr name="showBorder" format="boolean" />
+    <!--描边的扩散范围-->
+    <attr name="borderSize" format="dimension" />
+    <!--描边的颜色-->
+    <attr name="borderColor" format="color" />
+
+    <declare-styleable name="BEditText">
+        <attr name="roundRadius" />
+        <attr name="topLeftRadius" />
+        <attr name="topRightRadius" />
+        <attr name="bottomLeftRadius" />
+        <attr name="bottomRightRadius" />
+        <attr name="backgroundColor" />
+        <attr name="shadowSize" />
+        <attr name="shadowColor" />
+        <attr name="shadowDx" />
+        <attr name="shadowDy" />
+        <attr name="showShadow" />
+        <attr name="borderSize" />
+        <attr name="borderColor" />
+        <attr name="showBorder" />
+    </declare-styleable>
+
+
+</resources>
