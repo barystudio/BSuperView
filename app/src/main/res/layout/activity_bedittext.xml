@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:padding="45px"
             android:layout_margin="30px"
-            android:background="#fafafa"
+            android:background="#f9f9f9"
             android:orientation="vertical">
 
             <LinearLayout
@@ -241,7 +241,7 @@
             android:layout_height="wrap_content"
             android:padding="45px"
             android:layout_margin="30px"
-            android:background="#fafafa"
+            android:background="#f9f9f9"
             android:orientation="vertical">
 
             <LinearLayout
