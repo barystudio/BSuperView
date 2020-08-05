@@ -546,10 +546,6 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
         return mShadowBuilder.isHiddenShadowEdges(edges);
     }
 
-    @Override
-    public void setShadowShow(boolean show) {
-        mShadowBuilder.setShadowShow(show);
-    }
 
     @Override
     public boolean isShadowShow() {

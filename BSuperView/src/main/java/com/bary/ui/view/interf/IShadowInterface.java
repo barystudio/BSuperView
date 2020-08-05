@@ -27,7 +27,6 @@ public interface IShadowInterface {
     void hideShadowEdges(int... edges);
     void showShadowEdges(int... edges);
     boolean isHiddenShadowEdges(int edges);
-    void setShadowShow(boolean show);
     boolean isShadowShow();
 
 }

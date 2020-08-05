@@ -127,6 +127,11 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
     @Override
     public void setShadowXSize(float size) {
         this.mShadowXSize = size;
+        if(mShadowXSize==0&&mShadowYSize==0){
+            isShowShadow = false;
+        }else{
+            isShowShadow = true;
+        }
         updateUI();
     }
 
@@ -140,6 +145,11 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
     @Override
     public void setShadowYSize(float size) {
         this.mShadowYSize = size;
+        if(mShadowXSize==0&&mShadowYSize==0){
+            isShowShadow = false;
+        }else{
+            isShowShadow = true;
+        }
         updateUI();
     }
 
@@ -156,6 +166,12 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
         this.mShadowSize = size;
         mShadowXSize = mShadowSize;
         mShadowYSize = mShadowSize;
+
+        if(mShadowXSize==0&&mShadowYSize==0){
+            isShowShadow = false;
+        }else{
+            isShowShadow = true;
+        }
         updateUI();
     }
 
@@ -210,11 +226,6 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
         return mBackGroundColor;
     }
 
-    @Override
-    public void setShadowShow(boolean show) {
-        isShowShadow = show;
-        setShadowColor(getShadowColor());
-    }
 
     @Override
     public boolean isShadowShow() {

@@ -49,8 +49,8 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         /**--描边--**/
         //初始化描边数据
         borderTitleLayout.setOnClickListener(this)
-        skbar_border.max =AppUtils.dip2px(this,20f)
-        skbar_border.setOnSeekBarChangeListener(this)
+        skbar_border_size.max =AppUtils.dip2px(this,20f)
+        skbar_border_size.setOnSeekBarChangeListener(this)
         borderhide_top.setOnClickListener(this)
         borderhide_left.setOnClickListener(this)
         borderhide_right.setOnClickListener(this)
@@ -61,25 +61,22 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         borderhide_bottom.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.BOTTOM)
         /**--阴影--**/
         //初始化阴影尺寸
-        showShadow.setOnClickListener(this)
+        shadowTitleLayout.setOnClickListener(this)
         shadowhide_top.setOnClickListener(this)
         shadowhide_left.setOnClickListener(this)
         shadowhide_right.setOnClickListener(this)
         shadowhide_bottom.setOnClickListener(this)
-        showShadow.isSelected = mBEditText.isShadowShow
 
         shadowhide_top.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.TOP)
         shadowhide_left.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.LEFT)
         shadowhide_right.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.RIGHT)
         shadowhide_bottom.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.BOTTOM)
-        skbar_size.max = (mBEditText.shadowSize * 2).toInt()
-        skbar_size.progress = mBEditText.shadowSize.toInt()
+        skbar_shadow_size.max = AppUtils.dip2px(this,20f)
         //初始化透明度
         skbar_alpha.max = 255
-        skbar_alpha.progress = (mBEditText.shadowAlpha * 255).toInt()
         //初始化阴影颜色
         skbar_color.setMarkColor(mBEditText.shadowColor)
-        skbar_size.setOnSeekBarChangeListener(this)
+        skbar_shadow_size.setOnSeekBarChangeListener(this)
         skbar_x.setOnSeekBarChangeListener(this)
         skbar_y.setOnSeekBarChangeListener(this)
         skbar_alpha.setOnSeekBarChangeListener(this)
@@ -137,16 +134,8 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
             hideBorderEdges(borderhide_right,ShadowBuilder.RIGHT);
         } else if (i == R.id.borderhide_bottom) {
             hideBorderEdges(borderhide_bottom,ShadowBuilder.BOTTOM);
-        } else if (i == R.id.showShadow) {
-            showShadow.isSelected = !showShadow.isSelected
-            mBEditText.isShadowShow = showShadow.isSelected
-            if (showShadow.isSelected){
-                shadow_layout.visibility = View.VISIBLE;
-                skbar_size.max = (mBEditText.shadowSize * 2).toInt()
-                skbar_size.progress = mBEditText.shadowSize.toInt()
-            }else{
-                shadow_layout.visibility = View.GONE;
-            }
+        } else if (i == R.id.shadowTitleLayout) {
+            changeInfoVisible(shadowTitleIv,shadowinfoLayout)
         } else if (i == R.id.shadowhide_left) {
             hideShadowEdges(shadowhide_left,ShadowBuilder.LEFT);
         } else if (i == R.id.shadowhide_top) {
@@ -205,10 +194,10 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
             R.id.skbar_round_br -> {
                 mBEditText.bottomRightRoundRadius = progress.toFloat()
             }
-            R.id.skbar_size -> {
+            R.id.skbar_shadow_size -> {
                 mBEditText.shadowSize = progress.toFloat()
             }
-            R.id.skbar_border -> {
+            R.id.skbar_border_size -> {
                 mBEditText.borderSize = progress.toFloat()
             }
             R.id.skbar_x -> {
