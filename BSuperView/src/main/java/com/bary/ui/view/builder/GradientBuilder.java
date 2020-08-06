@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bary.ui.view.eum.GradientOrientation;
@@ -32,6 +33,7 @@ import java.util.List;
  */
 public class GradientBuilder extends BaseBuilder implements IGradientInterface {
 
+    public String mLastGradientFlag = "";
     private List<String> mTextGradientColor = new ArrayList<>();
     private List<String> mBackgroundGradientColor = new ArrayList<>();
     private GradientOrientation mBackgroundGradientOrientation;
@@ -157,27 +159,37 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
     private Shader mTextShader;
 
     public void updateTextGradient() {
-        if (mSuper.getGradientStyle().getTextGradientColor().size() < 2) return;
         if (!(mView instanceof TextView)) return;
         TextView textView = ((TextView) mView);
+
+
+        int[] textColor = new int[mSuper.getGradientStyle().getTextGradientColor().size()];
+        if (mSuper.getGradientStyle().getTextGradientColor().size() < 2) {
+            textColor = new int[2];
+            textColor[0] = textView.getTextColors().getDefaultColor();
+            textColor[1] = textView.getTextColors().getDefaultColor();
+        }else{
+            for (int i = 0 ;i < mSuper.getGradientStyle().getTextGradientColor().size(); i++) {
+                textColor[i] = Color.parseColor(mSuper.getGradientStyle().getTextGradientColor().get(i));
+            }
+        }
+
         String mText = textView.getText().toString();
         textView.getPaint().getTextBounds(mText, 0, mText.length(), mTextBound);
-        int width = textView.getMeasuredWidth()
-                -textView.getPaddingLeft()
-                -textView.getPaddingRight()
-                -(textView.getCompoundDrawables()[0]==null?0:textView.getCompoundDrawables()[0].getBounds().right-textView.getCompoundDrawables()[0].getBounds().left+textView.getCompoundDrawablePadding())
-                -(textView.getCompoundDrawables()[2]==null?0:textView.getCompoundDrawables()[2].getBounds().right-textView.getCompoundDrawables()[2].getBounds().left+textView.getCompoundDrawablePadding());
 
         rectf.left = textView.getPaddingLeft()+(textView.getCompoundDrawables()[0]==null?0:textView.getCompoundDrawables()[0].getBounds().right-textView.getCompoundDrawables()[0].getBounds().left+textView.getCompoundDrawablePadding());
         rectf.right = textView.getWidth()-textView.getPaddingRight()-(textView.getCompoundDrawables()[2]==null?0:textView.getCompoundDrawables()[2].getBounds().right-textView.getCompoundDrawables()[2].getBounds().left+textView.getCompoundDrawablePadding());
         rectf.top = textView.getPaddingTop()+(textView.getCompoundDrawables()[1]==null?0:textView.getCompoundDrawables()[1].getBounds().bottom-textView.getCompoundDrawables()[1].getBounds().top+textView.getCompoundDrawablePadding());
         rectf.bottom = textView.getHeight()-textView.getPaddingBottom()-(textView.getCompoundDrawables()[3]==null?0:textView.getCompoundDrawables()[3].getBounds().bottom-textView.getCompoundDrawables()[3].getBounds().top+textView.getCompoundDrawablePadding());
 
-        Log.d("updateTextGradient-","left-"+rectf.left+" right-"+rectf.right+" top-"+rectf.top+" bottom-"+rectf.bottom+" width-"+textView.getWidth()+" Height-"+textView.getHeight());
-        int[] textColor = new int[mSuper.getGradientStyle().getTextGradientColor().size()];
-        for (int i = 0 ;i < mSuper.getGradientStyle().getTextGradientColor().size(); i++) {
-            textColor[i] = Color.parseColor(mSuper.getGradientStyle().getTextGradientColor().get(i));
-        }
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(textView.getText()).append("-").append(textView.getHint()).append("-").append(textView.getTextSize()).append("-").append(textView.getTextColors().getDefaultColor()).append("-")
+                .append(mSuper.getGradientStyle().getTextGradientColor()).append("-").append(rectf.left).append("-").append(rectf.top).append("-").append(rectf.right).append("-").append(rectf.bottom).append("-")
+                .append(mSuper.getGradientStyle().getTextGradientType()).append("-").append(mSuper.getGradientStyle().getTextGradientOrientation());
+        if(mLastGradientFlag.equals(buffer.toString())) return;
+
+        mLastGradientFlag = buffer.toString();
+
         switch (mSuper.getGradientStyle().getTextGradientType()) {
             case LINEAR:
                 float targetX = rectf.right;
@@ -210,6 +222,12 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
             textColor = new int[]{textView.getHintTextColors().getDefaultColor(), textView.getHintTextColors().getDefaultColor()};
             textView.getPaint().setShader(new LinearGradient(0, 0,textView.getMeasuredWidth(),textView.getMeasuredHeight(), textColor, null, Shader.TileMode.REPEAT));
         }
+        if(mView instanceof EditText){
+            int index = ((EditText)mView).getSelectionStart();
+            ((EditText)mView).setText(textView.getText());
+            ((EditText)mView).setSelection(index);
+        }
+
     }
 
     private boolean isHexColor(String color) {

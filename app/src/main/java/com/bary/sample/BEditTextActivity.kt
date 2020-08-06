@@ -14,6 +14,9 @@ import com.bary.ui.view.eum.GradientType
 import kotlinx.android.synthetic.main.activity_bedittext.*
 
 class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarChangeListener {
+    var mGradientKind = R.id.gradient_kind_bg
+    var mGradientOrientation = R.id.gradient_orientation_h
+    var mGradientType = R.id.gradient_type_l
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bedittext)
@@ -30,7 +33,7 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
 
         /**--圆角--**/
         //初始化圆角尺寸
-        skbar_round.max = AppUtils.dip2px(this,70f)
+        skbar_round.max = AppUtils.dip2px(this, 70f)
         skbar_round_tl.max = skbar_round.max
         skbar_round_tr.max = skbar_round.max
         skbar_round_bl.max = skbar_round.max
@@ -49,7 +52,7 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         /**--描边--**/
         //初始化描边数据
         borderTitleLayout.setOnClickListener(this)
-        skbar_border_size.max =AppUtils.dip2px(this,20f)
+        skbar_border_size.max = AppUtils.dip2px(this, 20f)
         skbar_border_size.setOnSeekBarChangeListener(this)
         borderhide_top.setOnClickListener(this)
         borderhide_left.setOnClickListener(this)
@@ -59,6 +62,12 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         borderhide_left.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.LEFT)
         borderhide_right.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.RIGHT)
         borderhide_bottom.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.BOTTOM)
+        skbar_border_color.setOnColorChangeListener(object : MyColorBar.OnStateChangeListener {
+            override fun onProcessChanged(progress: Int, color: Int) {
+                mBEditText.borderColor = color
+            }
+
+        })
         /**--阴影--**/
         //初始化阴影尺寸
         shadowTitleLayout.setOnClickListener(this)
@@ -71,9 +80,10 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         shadowhide_left.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.LEFT)
         shadowhide_right.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.RIGHT)
         shadowhide_bottom.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.BOTTOM)
-        skbar_shadow_size.max = AppUtils.dip2px(this,20f)
+        skbar_shadow_size.max = AppUtils.dip2px(this, 20f)
         //初始化透明度
         skbar_alpha.max = 255
+        skbar_alpha.progress = (mBEditText.shadowAlpha * 255).toInt()
         //初始化阴影颜色
         skbar_color.setMarkColor(mBEditText.shadowColor)
         skbar_shadow_size.setOnSeekBarChangeListener(this)
@@ -87,92 +97,136 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
 
         })
 
+
         /**--渐变色--**/
         //初始渐变色
-        showGradientBg.setOnClickListener(this)
-        gradient_bg_orientation.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
+        gradientTitleLayout.setOnClickListener(this)
+        showGradient.setOnClickListener(this)
+        gradient_kind.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-                if(checkedId == R.id.gradient_bg_orientation_h){
-                    mBEditText.backgroundGradientOrientation = GradientOrientation.HORIZONTAL
-                }else if(checkedId == R.id.gradient_bg_orientation_v){
-                    mBEditText.backgroundGradientOrientation = GradientOrientation.VERTICAL
-                }else if(checkedId == R.id.gradient_bg_orientation_d){
-                    mBEditText.backgroundGradientOrientation = GradientOrientation.DIAGONAL
-                }
+                mGradientKind = checkedId
+                changeGradientInfo()
             }
 
         })
-        gradient_bg_type.setOnCheckedChangeListener(object :RadioGroup.OnCheckedChangeListener{
+        gradient_orientation.setOnCheckedChangeListener(object :
+            RadioGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-                if(checkedId == R.id.gradient_bg_type_l){
-                    mBEditText.backgroundGradientType = GradientType.LINEAR
-                }else if(checkedId == R.id.gradient_bg_type_r){
-                    mBEditText.backgroundGradientType = GradientType.RADIAL
-                }else if(checkedId == R.id.gradient_bg_type_s){
-                    mBEditText.backgroundGradientType = GradientType.SWEEP
-                }
+                mGradientOrientation = checkedId;
+                changeGradientInfo()
+            }
+
+        })
+        gradient_type.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                mGradientType = checkedId;
+                changeGradientInfo()
             }
 
         })
 
-        showGradientBg.isSelected = false
-        gradient_bg_orientation.check(R.id.gradient_bg_orientation_h)
-        gradient_bg_type.check(R.id.gradient_bg_type_l)
+        showGradient.isSelected = false
+        gradient_orientation.check(R.id.gradient_orientation_h)
+        gradient_type.check(R.id.gradient_type_l)
     }
 
     override fun onClick(v: View?) {
         val i = v!!.id
         if (i == R.id.roundTitleLayout) {
-            changeInfoVisible(roundTitleIv,roundIinfoLayout)
+            changeInfoVisible(roundTitleIv, roundInfoLayout)
         } else if (i == R.id.borderTitleLayout) {
-            changeInfoVisible(borderTitleIv,borderIinfoLayout)
+            changeInfoVisible(borderTitleIv, borderInfoLayout)
         } else if (i == R.id.borderhide_left) {
-            hideBorderEdges(borderhide_left,ShadowBuilder.LEFT);
+            hideBorderEdges(borderhide_left, ShadowBuilder.LEFT);
         } else if (i == R.id.borderhide_top) {
-            hideBorderEdges(borderhide_top,ShadowBuilder.TOP);
+            hideBorderEdges(borderhide_top, ShadowBuilder.TOP);
         } else if (i == R.id.borderhide_right) {
-            hideBorderEdges(borderhide_right,ShadowBuilder.RIGHT);
+            hideBorderEdges(borderhide_right, ShadowBuilder.RIGHT);
         } else if (i == R.id.borderhide_bottom) {
-            hideBorderEdges(borderhide_bottom,ShadowBuilder.BOTTOM);
+            hideBorderEdges(borderhide_bottom, ShadowBuilder.BOTTOM);
         } else if (i == R.id.shadowTitleLayout) {
-            changeInfoVisible(shadowTitleIv,shadowinfoLayout)
+            changeInfoVisible(shadowTitleIv, shadowInfoLayout)
         } else if (i == R.id.shadowhide_left) {
-            hideShadowEdges(shadowhide_left,ShadowBuilder.LEFT);
+            hideShadowEdges(shadowhide_left, ShadowBuilder.LEFT);
         } else if (i == R.id.shadowhide_top) {
-            hideShadowEdges(shadowhide_top,ShadowBuilder.TOP);
+            hideShadowEdges(shadowhide_top, ShadowBuilder.TOP);
         } else if (i == R.id.shadowhide_right) {
-            hideShadowEdges(shadowhide_right,ShadowBuilder.RIGHT);
+            hideShadowEdges(shadowhide_right, ShadowBuilder.RIGHT);
         } else if (i == R.id.shadowhide_bottom) {
-            hideShadowEdges(shadowhide_bottom,ShadowBuilder.BOTTOM);
-        } else if (i == R.id.showGradientBg) {
-            showGradientBg.isSelected = !showGradientBg.isSelected
-            gradient_bg_layout.visibility = if(showGradientBg.isSelected) View.VISIBLE else View.GONE
-            if(showGradientBg.isSelected){
-                mBEditText.setBackgroundGradientColor("#FF8585","#03DAC5","#FF8B15")
-            }else{
-                mBEditText.clearBackgroundGradientColor()
-            }
+            hideShadowEdges(shadowhide_bottom, ShadowBuilder.BOTTOM);
+        } else if (i == R.id.gradientTitleLayout) {
+            changeInfoVisible(gradientTitleIv, gradientInfoLayout)
+        } else if (i == R.id.showGradient) {
+            showGradient.isSelected = !showGradient.isSelected
+            changeGradientInfo();
         }
     }
 
-    fun changeInfoVisible(titleIv: View,info: View) {
+    fun changeInfoVisible(titleIv: View, info: View) {
         titleIv.isSelected = !titleIv.isSelected
-        info.visibility = if(titleIv.isSelected) View.VISIBLE else View.GONE
+        info.visibility = if (titleIv.isSelected) View.VISIBLE else View.GONE
     }
+
     fun hideShadowEdges(view: View, edge: Int) {
         view.isSelected = !view.isSelected
-        if(view.isSelected)
+        if (view.isSelected)
             mBEditText.hideShadowEdges(edge)
         else
             mBEditText.showShadowEdges(edge)
     }
+
     fun hideBorderEdges(view: View, edge: Int) {
         view.isSelected = !view.isSelected
-        if(view.isSelected)
+        if (view.isSelected)
             mBEditText.hideBorderEdges(edge)
         else
             mBEditText.showBorderEdges(edge)
     }
+
+    fun changeGradientInfo() {
+        mBEditText.clearTextGradientColor();
+        mBEditText.clearBackgroundGradientColor()
+        if (!showGradient.isSelected) return
+
+         var mGt:GradientType = when (mGradientType) {
+            R.id.gradient_type_l -> {
+                GradientType.LINEAR
+            }
+            R.id.gradient_type_r -> {
+                GradientType.RADIAL
+            }
+            R.id.gradient_type_s -> {
+                GradientType.SWEEP
+            }
+            else -> GradientType.LINEAR
+        }
+        var  mGo:GradientOrientation = when (mGradientOrientation) {
+            R.id.gradient_orientation_h -> {
+                GradientOrientation.HORIZONTAL
+            }
+            R.id.gradient_orientation_v -> {
+                GradientOrientation.VERTICAL
+            }
+            R.id.gradient_orientation_d -> {
+                GradientOrientation.DIAGONAL
+            }
+            else -> GradientOrientation.HORIZONTAL
+        }
+
+        if (mGradientKind == R.id.gradient_kind_bg) {
+            mBEditText.setBackgroundGradientColor("#FF8585", "#03DAC5", "#FF8B15")
+            mBEditText.backgroundGradientType = mGt
+            mBEditText.backgroundGradientOrientation = mGo
+
+        } else {
+            mBEditText.setTextGradientColor("#FF8585", "#03DAC5", "#FF8B15")
+            mBEditText.textGradientType = mGt
+            mBEditText.textGradientOrientation = mGo
+        }
+
+
+    }
+
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
         when (seekBar!!.id) {
             R.id.skbar_round -> {

@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="vertical"
-            android:paddingBottom="50px">
+            >
 
             <View style="@style/HorizontalLine" />
 
@@ -103,11 +103,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/roundIinfoLayout"
+                android:id="@+id/roundInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:layout_marginRight="30px"
+                android:layout_marginBottom="30px"
                 android:background="#f9f9f9"
                 android:orientation="vertical"
                 android:padding="45px"
@@ -230,11 +231,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/borderIinfoLayout"
+                android:id="@+id/borderInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:layout_marginRight="30px"
+                android:layout_marginBottom="30px"
                 android:background="#f9f9f9"
                 android:orientation="vertical"
                 android:padding="45px"
@@ -260,7 +262,24 @@
 
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45px"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="颜色值 :" />
+
+                    <com.bary.sample.view.MyColorBar
+                        android:id="@+id/skbar_border_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -373,10 +392,12 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/shadowinfoLayout"
+                android:id="@+id/shadowInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginBottom="30px"
                 android:background="#f9f9f9"
                 android:orientation="vertical"
                 android:padding="45px"
@@ -477,7 +498,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
-                        android:max="100" />
+                         />
 
                 </LinearLayout>
 
@@ -563,38 +584,40 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <View style="@style/HorizontalLine" />
 
             <LinearLayout
+                android:id="@+id/gradientTitleLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="45px"
-                android:layout_marginTop="45px"
-                android:layout_marginRight="45px"
-                android:orientation="horizontal">
+                android:layout_height="120px"
+                android:orientation="horizontal"
+                android:paddingLeft="45px"
+                android:paddingRight="45px">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="显示渐变色背景 :"
+                    android:layout_weight="1"
+                    android:text="渐变色属性 :"
                     android:textStyle="bold" />
 
                 <ImageView
-                    android:id="@+id/showGradientBg"
-                    android:layout_width="50px"
-                    android:layout_height="50px"
-                    android:layout_centerVertical="true"
+                    android:id="@+id/gradientTitleIv"
+                    android:layout_width="60px"
+                    android:layout_height="60px"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="30px"
-                    android:background="@drawable/test_customview_cb_select" />
+                    android:background="@drawable/test_open_select" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/gradient_bg_layout"
+                android:id="@+id/gradientInfoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30px"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginBottom="30px"
                 android:background="#f9f9f9"
                 android:orientation="vertical"
                 android:padding="45px"
@@ -610,17 +633,89 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="渐变类型 :" />
+                        android:text="显示渐变 :" />
+
+                    <ImageView
+                        android:id="@+id/showGradient"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30px"
+                        android:background="@drawable/test_customview_cb_select" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="种类切换 :" />
 
                     <RadioGroup
-                        android:id="@+id/gradient_bg_type"
+                        android:id="@+id/gradient_kind"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_type_l"
+                            android:id="@+id/gradient_kind_bg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:checked="true"
+                            android:text="背景"
+                            android:textColor="#666666" />
+
+                        <RadioButton
+                            android:id="@+id/gradient_kind_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="文字"
+                            android:textColor="#666666" />
+
+
+                    </RadioGroup>
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#bbbbbb"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:text="为了演示效果采用切换的方式，两者可以共存" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="渐变类型 :" />
+
+                    <RadioGroup
+                        android:id="@+id/gradient_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/gradient_type_l"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -629,7 +724,7 @@
                             android:textColor="#666666" />
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_type_r"
+                            android:id="@+id/gradient_type_r"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -637,7 +732,7 @@
                             android:textColor="#666666" />
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_type_s"
+                            android:id="@+id/gradient_type_s"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -651,7 +746,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="45px"
+                    android:layout_marginTop="15px"
                     android:orientation="horizontal">
 
                     <TextView
@@ -661,14 +756,14 @@
                         android:text="渐变方向 :" />
 
                     <RadioGroup
-                        android:id="@+id/gradient_bg_orientation"
+                        android:id="@+id/gradient_orientation"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_orientation_h"
+                            android:id="@+id/gradient_orientation_h"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -677,7 +772,7 @@
                             android:textColor="#666666" />
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_orientation_v"
+                            android:id="@+id/gradient_orientation_v"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -685,7 +780,7 @@
                             android:textColor="#666666" />
 
                         <RadioButton
-                            android:id="@+id/gradient_bg_orientation_d"
+                            android:id="@+id/gradient_orientation_d"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
@@ -697,6 +792,58 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <View style="@style/HorizontalLine" />
+            <LinearLayout
+                android:id="@+id/auxiliaryTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:orientation="horizontal"
+                android:paddingLeft="45px"
+                android:paddingRight="45px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="辅助功能 :"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/auxiliaryTitleIv"
+                    android:layout_width="60px"
+                    android:layout_height="60px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/test_open_select" />
+
+            </LinearLayout>
+            <View style="@style/HorizontalLine" />
+            <LinearLayout
+                android:id="@+id/otherTitleLayout"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:orientation="horizontal"
+                android:paddingLeft="45px"
+                android:paddingRight="45px">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="另类样式 :"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/otherTitleIv"
+                    android:layout_width="60px"
+                    android:layout_height="60px"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/test_open_select" />
+
+            </LinearLayout>
+            <View android:layout_width="match_parent"
+                android:layout_height="300dp"/>
         </LinearLayout>
     </ScrollView>
 

@@ -32,14 +32,18 @@
         <flag name = "top" value = "4" />
         <flag name = "bottom" value = "8" />
     </attr>
-    <!--  是否要显示应用，可能有只想用shape这块，不想要阴影-->
-    <attr name="shadowShow" format="boolean" />
-    <!--是否要显示描边-->
-    <attr name="borderShow" format="boolean" />
+
     <!--描边的扩散范围-->
     <attr name="borderSize" format="dimension" />
     <!--描边的颜色-->
     <attr name="borderColor" format="color" />
+    <!--隐藏描边某些边-->
+    <attr name="borderHideEdges">
+        <flag name = "left" value = "1" />
+        <flag name = "right" value = "2" />
+        <flag name = "top" value = "4" />
+        <flag name = "bottom" value = "8" />
+    </attr>
 
     <!--文本渐变色颜色-->
     <attr name="textGradientColor" format="string" />
@@ -84,7 +88,6 @@
         <attr name="bottomLeftRadius" />
         <attr name="bottomRightRadius" />
 
-        <attr name="shadowShow" />
         <attr name="shadowHideEdges" />
         <attr name="shadowSize" />
         <attr name="shadowXSize" />
@@ -94,9 +97,9 @@
         <attr name="shadowDx" />
         <attr name="shadowDy" />
 
-        <attr name="borderShow" />
         <attr name="borderSize" />
         <attr name="borderColor" />
+        <attr name="borderHideEdges" />
     </declare-styleable>
 
 

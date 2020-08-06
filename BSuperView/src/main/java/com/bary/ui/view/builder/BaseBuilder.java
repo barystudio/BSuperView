@@ -13,6 +13,7 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.bary.ui.view.interf.ISuperInterface;
@@ -26,6 +27,7 @@ import java.util.Map;
  */
 public abstract class BaseBuilder {
     public View mView;
+    public String mLastBackGroundFlag = "";
     public ISuperInterface mSuper;
     private Paint mShadowPaint;
     private Paint mGradientPaint;
@@ -166,6 +168,7 @@ public abstract class BaseBuilder {
                 mSuper.getBorderStyle().getBorderSize(),
                 mSuper.getBorderStyle().getBorderColor()
         );
+        if(bitmap==null)return;
         BitmapDrawable drawable = new BitmapDrawable(bitmap);
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
             mView.setBackgroundDrawable(drawable);
@@ -196,6 +199,13 @@ public abstract class BaseBuilder {
      */
     private Bitmap getShadowBitmap(int shadowWidth, int shadowHeight, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, float shadowXSize, float shadowYSize,
                                    float dx, float dy, int shadowColor, float shadowAlpha, int[] fillColor, float borderSize, int borderColor) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(shadowWidth).append("-").append(shadowHeight).append("-").append(topLeftRadius).append("-").append(topRightRadius).append("-").append(bottomLeftRadius).append("-")
+                .append(bottomRightRadius).append("-").append(shadowXSize).append("-").append(shadowYSize).append("-").append(dx).append("-").append(dy).append("-").append(shadowColor).append("-")
+                .append(shadowAlpha).append("-").append(fillColor).append("-").append(borderSize).append("-").append(borderColor);
+        if(mLastBackGroundFlag.equals(buffer.toString())) return null;
+
+        mLastBackGroundFlag = buffer.toString();
         //优化阴影bitmap大小,将尺寸缩小至原来的1/4。
         dx = dx / 4;
         dy = dy / 4;
@@ -228,7 +238,7 @@ public abstract class BaseBuilder {
         rectf.right -= dx;
 
         mShadowPaint.setColor(Color.TRANSPARENT);
-        if (shadowAlpha < 1) {
+        if (shadowAlpha > 0) {
             int alpha = (int) (Color.alpha(shadowColor) * shadowAlpha);
             shadowColor = Color.argb(alpha, Color.red(shadowColor), Color.green(shadowColor), Color.blue(shadowColor));
         }
@@ -351,27 +361,29 @@ public abstract class BaseBuilder {
             bl = b = br = Color.TRANSPARENT;
         }
 
-        float lineTopLeft = rectf.left + topLeftRadius-1;
-        float lineLeftTop = rectf.top + topLeftRadius-1;
+        float fault = 0.5f;
+
+        float lineTopLeft = rectf.left + topLeftRadius-fault;
+        float lineLeftTop = rectf.top + topLeftRadius-fault;
         if(topLeftRadius <=0){
             lineTopLeft = rectf.left-borderSize/2;
             lineLeftTop = rectf.top-borderSize/2;
         }
-        float lineTopRight = rectf.right - topRightRadius+1;
+        float lineTopRight = rectf.right - topRightRadius+fault;
         float lineRightTop = rectf.top+topRightRadius-1;
         if(topRightRadius <=0){
             lineTopRight = rectf.right+borderSize/2;
             lineRightTop = rectf.top-borderSize/2;
         }
-        float lineBottomRight = rectf.right-bottomRightRadius+1;
-        float lineRightBottom = rectf.bottom - bottomRightRadius+1;
+        float lineBottomRight = rectf.right-bottomRightRadius+fault;
+        float lineRightBottom = rectf.bottom - bottomRightRadius+fault;
         if(bottomRightRadius <=0){
             lineBottomRight = rectf.right+borderSize/2;
             lineRightBottom = rectf.bottom+borderSize/2;
         }
 
-        float lineBottomLeft = rectf.left + bottomLeftRadius-1;
-        float lineLeftBottom = rectf.bottom-bottomLeftRadius+1;
+        float lineBottomLeft = rectf.left + bottomLeftRadius-fault;
+        float lineLeftBottom = rectf.bottom-bottomLeftRadius+fault;
         if(bottomLeftRadius <=0){
             lineBottomLeft = rectf.left-borderSize/2;
             lineLeftBottom = rectf.bottom+borderSize/2;

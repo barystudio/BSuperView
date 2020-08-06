@@ -43,8 +43,6 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
         if (attr == null) {
             return;
         }
-        //是否显示阴影
-        isShowShadow = attr.getBoolean(getStyleableId("shadowShow"), false);
         //隐藏某些边阴影
         mShadowHideEdges = attr.getInt(getStyleableId("shadowHideEdges"), -1);
         //默认扩散区域宽度
@@ -194,7 +192,7 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
 
     @Override
     public float getShadowAlpha() {
-        return mShadowAlpha;
+        return mShadowAlpha>=1?0.99f:mShadowAlpha;
     }
 
     @Override

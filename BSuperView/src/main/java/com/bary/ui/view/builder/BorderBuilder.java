@@ -42,13 +42,11 @@ public class BorderBuilder extends BaseBuilder implements IBorderInterface {
         if (attr == null) {
             return;
         }
-        //默认是显示
-        isShowBorder = attr.getBoolean(getStyleableId("borderShow"), false);
         //默认扩散区域宽度
         mBorderSize = attr.getDimension(getStyleableId("borderSize"), 0);
-        mBorderColor = attr.getColor(getStyleableId("borderColor"), Color.TRANSPARENT);
+        mBorderColor = attr.getColor(getStyleableId("borderColor"), Color.BLACK);
         //隐藏某些边描边
-        mBorderHideEdges = attr.getInt(getStyleableId("shadowHideEdges"), -1);
+        mBorderHideEdges = attr.getInt(getStyleableId("borderHideEdges"), -1);
 
         initBorderHideEdges();
     }
