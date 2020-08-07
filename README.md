@@ -23,8 +23,7 @@
 | app:bottomRightRadius="10dp"  | setBottomRightRoundRadius(int radius)| 左下角圆角值 |
 
 如果设置了roundRadius的值默认会重置四个角度的值，以roundRadius为准
-
-```
+```xml
   <!--四个圆角都为10dp-->
   <com.bary.ui.view.BEditText
         ...
@@ -59,7 +58,7 @@
   />
 ```
 <br>
-#### ◆ 阴影
+####  ◆ 阴影
 
 ![阴影演示.gif](https://upload-images.jianshu.io/upload_images/10149003-cbd2a8455a9bfbb6.gif?imageMogr2/auto-orient/strip)
 
@@ -124,7 +123,7 @@
   />
 ```
 <br>
-#### ◆ 辅助功能
+####  ◆ 辅助功能
 ######  1、一键清空
 ######  2、密码可见性切换&自定义图标
 ######  3、输入法控制
@@ -136,10 +135,10 @@
 变色、抖动....
 
 <br>
-#编写中....莫急！！！
+#  编写中....莫急！！！
 <br>
-# 二、使用方法
-##### 1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
+#   二、使用方法
+#####  1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
 ```java
 
   allprojects {
@@ -150,12 +149,12 @@
   }
 
 ```
-##### 2、在需要用的主程序或Module下的build.gradle中引用
+#####  2、在需要用的主程序或Module下的build.gradle中引用
 ```java
 
   dependencies {
         ...
-        implementation 'com.github.barystudio:BSuperView:1.0.2'
+        implementation 'com.github.barystudio:BSuperView:1.0.3'
   }
 
 ```
@@ -165,7 +164,7 @@
 ![Bary Studio](https://upload-images.jianshu.io/upload_images/10149003-5011dd901f0516ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-# 更多内容都在【[Android开发这些年，沉淀下了什么？](https://www.jianshu.com/c/8e44ec207651)】专题中
+#  更多内容都在【[Android开发这些年，沉淀下了什么？](https://www.jianshu.com/c/8e44ec207651)】专题中
 
 
 * * *
