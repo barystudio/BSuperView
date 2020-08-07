@@ -10,7 +10,10 @@
 | 另类样式  | 支付密码输入样式、验证码输入样式等|
 下面详细说说各个功能的使用方法：
 #### ◆ 圆角
+
 ![圆角演示.gif](https://upload-images.jianshu.io/upload_images/10149003-f4cc1abd6d764ff3.gif?imageMogr2/auto-orient/strip)
+
+- ![slide.gif](https://upload-images.jianshu.io/upload_images/4432347-43e7e30096b6e322.gif?imageMogr2/auto-orient/strip)
 
 |  XML设置   | 代码设置  | 描述  |
 |  ----  | ----  | ----  |
