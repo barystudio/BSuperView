@@ -1,4 +1,4 @@
-#一、功能介绍
+# 一、功能介绍
 为了能够更直观的让大家知道BEditText都能做什么，下面我列了一个功能列表，做一下简单描述；如下：
 |  功能   | 描述  |
 |  ----  | ----  |
@@ -8,12 +8,11 @@
 | 渐变色| 可以设置文本渐变色、背景渐变色|
 | 辅助功能  | 支持一键清空<br>支持密码可见性切换并可以自定义图标<br>支持输入法控制<br>支持异常提醒|
 | 另类样式  | 支付密码输入样式、验证码输入样式等|
+
 下面详细说说各个功能的使用方法：
-#### ◆ 圆角
+####  ◆ 圆角
 
 ![圆角演示.gif](https://upload-images.jianshu.io/upload_images/10149003-f4cc1abd6d764ff3.gif?imageMogr2/auto-orient/strip)
-
-- ![slide.gif](https://upload-images.jianshu.io/upload_images/4432347-43e7e30096b6e322.gif?imageMogr2/auto-orient/strip)
 
 |  XML设置   | 代码设置  | 描述  |
 |  ----  | ----  | ----  |
@@ -22,8 +21,10 @@
 | app:topRightRadius="10dp"  | setTopRightRoundRadius(int radius)| 右上角圆角值 |
 | app:bottomLeftRadius="10dp"  | setBottomLeftRoundRadius(int radius)| 左下角圆角值 |
 | app:bottomRightRadius="10dp"  | setBottomRightRoundRadius(int radius)| 左下角圆角值 |
+
 如果设置了roundRadius的值默认会重置四个角度的值，以roundRadius为准
-```xml
+
+```
   <!--四个圆角都为10dp-->
   <com.bary.ui.view.BEditText
         ...
@@ -38,7 +39,8 @@
   />
 ```
 <br>
-#### ◆ 描边
+####  ◆ 描边
+
 ![描边演示.gif](https://upload-images.jianshu.io/upload_images/10149003-60db359459bc4a3c.gif?imageMogr2/auto-orient/strip)
 
 |  XML设置   | 代码设置  | 描述  |
@@ -58,8 +60,8 @@
 ```
 <br>
 #### ◆ 阴影
-![阴影演示.gif](https://upload-images.jianshu.io/upload_images/10149003-cbd2a8455a9bfbb6.gif?imageMogr2/auto-orient/strip)
 
+![阴影演示.gif](https://upload-images.jianshu.io/upload_images/10149003-cbd2a8455a9bfbb6.gif?imageMogr2/auto-orient/strip)
 
 |  XML设置   | 代码设置  | 描述  |
 |  ----  | ----  | ----  |
@@ -72,7 +74,6 @@
 | app:shadowColor="#ff8585"  | setShadowColor(int color)| 设置阴影颜色 |
 | app:shadowAlpha="0.8"  | setShadowAlpha(float alpha)| 设置阴影透明度 |
 | app:shadowHideEdges="left\|top"  | hideShadowEdges(int... edges)| 设置需要隐藏的边,值为：<br>left、top、right、bottom；<br>可以同时设置多个用\|分隔<br>即可（代码设置的话，<br>hideShadowEdges方法为<br>不定参，传多个参数即可;<br>ShadowBuilder.LEFT、<br>ShadowBuilder.TOP、<br>ShadowBuilder.RIGHT、<br>ShadowBuilder.BOTTOM） |
-
 
 想要显示描边shadowShow必须为true，如果设置了shadowSize的值默认会重置shadowXSize，shadowYSize的值，以shadowSize为准，四边阴影尺寸相同，想要横向纵向尺寸不同，只设置shadowXSize，shadowYSize即可。
 ```xml
@@ -88,7 +89,8 @@
   />
 ```
 <br>
-#### ◆ 渐变色
+####  ◆ 渐变色
+
 ![渐变色演示.gif](https://upload-images.jianshu.io/upload_images/10149003-4f596fc33578e1de.gif?imageMogr2/auto-orient/strip)
 
 |  XML设置   | 代码设置  | 描述  |
@@ -99,7 +101,6 @@
 | app:textGradientColor="#FF8585\|#FF8B15"  | setBackgroundGradientColor(String... colors)| 设置背景渐变色，至少两个16进制颜色值；<br>代码设置方法为不定参，传多个参数16进制颜色值 |
 | app:textGradientType="linear"  | setTextGradientType<br>(GradientType type)| 设置渐变类型，参数同背景渐变类型相同|
 | app:textGradientOrientation="horizontal"  | setTextGradientOrientation<br>(GradientOrientation orientation)| 设置渐变方向，参数同背景渐变类型相同|
-
 
 ☛ 由于渐变色需要在同一个属性下设置多个颜色，所以只能设置16进制颜色值，不能使用color下的颜色资源<br>
 背景渐变：
@@ -137,8 +138,8 @@
 <br>
 #编写中....莫急！！！
 <br>
-#二、使用方法
-#####1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
+# 二、使用方法
+##### 1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
 ```java
 
   allprojects {
@@ -149,7 +150,7 @@
   }
 
 ```
-#####2、在需要用的主程序或Module下的build.gradle中引用
+##### 2、在需要用的主程序或Module下的build.gradle中引用
 ```java
 
   dependencies {
