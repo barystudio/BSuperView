@@ -10,6 +10,7 @@
 | 另类样式  | 支付密码输入样式、验证码输入样式等|
 
 下面详细说说各个功能的使用方法：
+
 ####  ◆ 圆角
 
 ![圆角演示.gif](https://upload-images.jianshu.io/upload_images/10149003-f4cc1abd6d764ff3.gif?imageMogr2/auto-orient/strip)
@@ -38,6 +39,7 @@
   />
 ```
 <br>
+
 ####  ◆ 描边
 
 ![描边演示.gif](https://upload-images.jianshu.io/upload_images/10149003-60db359459bc4a3c.gif?imageMogr2/auto-orient/strip)
@@ -58,6 +60,7 @@
   />
 ```
 <br>
+
 ####  ◆ 阴影
 
 ![阴影演示.gif](https://upload-images.jianshu.io/upload_images/10149003-cbd2a8455a9bfbb6.gif?imageMogr2/auto-orient/strip)
@@ -88,6 +91,7 @@
   />
 ```
 <br>
+
 ####  ◆ 渐变色
 
 ![渐变色演示.gif](https://upload-images.jianshu.io/upload_images/10149003-4f596fc33578e1de.gif?imageMogr2/auto-orient/strip)
@@ -123,6 +127,7 @@
   />
 ```
 <br>
+
 ####  ◆ 辅助功能
 ######  1、一键清空
 ######  2、密码可见性切换&自定义图标
@@ -136,8 +141,11 @@
 
 <br>
 #  编写中....莫急！！！
+
 <br>
+
 #   二、使用方法
+
 #####  1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
 ```java
 
@@ -149,7 +157,9 @@
   }
 
 ```
+
 #####  2、在需要用的主程序或Module下的build.gradle中引用
+
 ```java
 
   dependencies {
