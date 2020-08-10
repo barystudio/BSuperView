@@ -98,6 +98,7 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         })
 
 
+
         /**--渐变色--**/
         //初始渐变色
         gradientTitleLayout.setOnClickListener(this)
@@ -128,6 +129,9 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         showGradient.isSelected = false
         gradient_orientation.check(R.id.gradient_orientation_h)
         gradient_type.check(R.id.gradient_type_l)
+
+        /**--辅助功能--**/
+        auxiliaryTitleLayout.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -159,6 +163,8 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         } else if (i == R.id.showGradient) {
             showGradient.isSelected = !showGradient.isSelected
             changeGradientInfo();
+        } else if (i == R.id.auxiliaryTitleLayout) {
+            changeInfoVisible(auxiliaryTitleIv, auxiliaryInfoLayout)
         }
     }
 

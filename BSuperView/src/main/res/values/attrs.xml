@@ -102,5 +102,26 @@
         <attr name="borderHideEdges" />
     </declare-styleable>
 
-
+    <!-- 验证码输入框-->
+    <declare-styleable name="BVerifyEditText">
+        <!--输入框的数量，默认是4-->
+        <attr name="verifyNumber" format="integer" />
+        <!--每一个输入框的宽度，默认21dp-->
+        <attr name="verifyWidth" format="dimension|reference" />
+        <!--输入框之间的分割线-->
+        <attr name="verifyDivider" format="reference" />
+        <!--输入框文字颜色，默认黑色-->
+        <attr name="verifyTextColor" format="color|reference" />
+        <!--输入框文字大小，默认16sp-->
+        <attr name="verifyTextSize" format="dimension|reference" />
+        <!--输入框获取焦点时背景-->
+        <attr name="verifyBackgroundFocus" format="reference" />
+        <!--输入框没有焦点时背景-->
+        <attr name="verifyBackgroundNormal" format="reference" />
+        <!--是否是密码模式, 默认是false-->
+        <attr name="verifyIsPassword" format="boolean" />
+        <!--密码模式时,圆的半径，默认是5dp-->
+        <attr name="verifyPasswordRadius" format="dimension|reference" />
+    </declare-styleable>
+    <attr name="BVerifyEditTextStyle" format="reference" />
 </resources>

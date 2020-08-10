@@ -817,31 +817,21 @@
                     android:background="@drawable/test_open_select" />
 
             </LinearLayout>
-            <View style="@style/HorizontalLine" />
+
             <LinearLayout
-                android:id="@+id/otherTitleLayout"
+                android:id="@+id/auxiliaryInfoLayout"
                 android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:orientation="horizontal"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="另类样式 :"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/otherTitleIv"
-                    android:layout_width="60px"
-                    android:layout_height="60px"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/test_open_select" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_marginRight="30px"
+                android:layout_marginBottom="30px"
+                android:background="#f9f9f9"
+                android:orientation="vertical"
+                android:padding="45px"
+                android:visibility="visible">
 
             </LinearLayout>
+            <View style="@style/HorizontalLine" />
             <View android:layout_width="match_parent"
                 android:layout_height="300dp"/>
         </LinearLayout>

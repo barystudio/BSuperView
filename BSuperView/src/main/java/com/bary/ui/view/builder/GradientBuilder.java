@@ -177,10 +177,15 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
         String mText = textView.getText().toString();
         textView.getPaint().getTextBounds(mText, 0, mText.length(), mTextBound);
 
-        rectf.left = textView.getPaddingLeft()+(textView.getCompoundDrawables()[0]==null?0:textView.getCompoundDrawables()[0].getBounds().right-textView.getCompoundDrawables()[0].getBounds().left+textView.getCompoundDrawablePadding());
-        rectf.right = textView.getWidth()-textView.getPaddingRight()-(textView.getCompoundDrawables()[2]==null?0:textView.getCompoundDrawables()[2].getBounds().right-textView.getCompoundDrawables()[2].getBounds().left+textView.getCompoundDrawablePadding());
-        rectf.top = textView.getPaddingTop()+(textView.getCompoundDrawables()[1]==null?0:textView.getCompoundDrawables()[1].getBounds().bottom-textView.getCompoundDrawables()[1].getBounds().top+textView.getCompoundDrawablePadding());
-        rectf.bottom = textView.getHeight()-textView.getPaddingBottom()-(textView.getCompoundDrawables()[3]==null?0:textView.getCompoundDrawables()[3].getBounds().bottom-textView.getCompoundDrawables()[3].getBounds().top+textView.getCompoundDrawablePadding());
+
+        Rect leftBound = getDrawableBound(textView,0);
+        Rect topBound = getDrawableBound(textView,1);
+        Rect rightBound = getDrawableBound(textView,2);
+        Rect bottomBound = getDrawableBound(textView,3);
+        rectf.left = textView.getPaddingLeft()+(leftBound.right-leftBound.left+textView.getCompoundDrawablePadding());
+        rectf.right = textView.getWidth()-textView.getPaddingRight()-(rightBound.right-rightBound.left+textView.getCompoundDrawablePadding());
+        rectf.top = textView.getPaddingTop()+(topBound.bottom-topBound.top+textView.getCompoundDrawablePadding());
+        rectf.bottom = textView.getHeight()-textView.getPaddingBottom()-(bottomBound.bottom-bottomBound.top+textView.getCompoundDrawablePadding());
 
         StringBuffer buffer = new StringBuffer();
         buffer.append(textView.getText()).append("-").append(textView.getHint()).append("-").append(textView.getTextSize()).append("-").append(textView.getTextColors().getDefaultColor()).append("-")
@@ -230,6 +235,9 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
 
     }
 
+    private Rect getDrawableBound(TextView textView,int index) {
+       return textView.getCompoundDrawables()[index]==null?new Rect(0,0,0,0):textView.getCompoundDrawables()[index].getBounds();
+    }
     private boolean isHexColor(String color) {
         return color != null && (color.length() == 3 || color.length() == 6)
                 && color.matches("[0-9A-Fa-f]+");
