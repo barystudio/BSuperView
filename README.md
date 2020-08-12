@@ -7,7 +7,7 @@
 | 描边  | 可以设置描边大小、颜色，可以隐藏任意边|
 | 阴影  | 可以设置阴影大小、颜色、偏移、距离、单边多边显示等|
 | 渐变色| 可以设置文本渐变色、背景渐变色|
-| 辅助功能  | 支持一键清空<br>支持密码可见性切换并可以自定义图标<br>支持输入法控制<br>支持异常提醒|
+| 辅助功能  | 支持一键清空<br>支持内容可见性切换&自定义图标<br>支持设置四周图标&自定义宽高<br>支持输入法控制|
 | 另类样式  | 支付密码输入样式、验证码输入样式等|
 
 下面详细说说各个功能的使用方法：
@@ -126,26 +126,53 @@
 <br>
 ####  ◆ 辅助功能
 
+![一键清空&内容可见.jpg](https://upload-images.jianshu.io/upload_images/10149003-c69a2db5a22e8b9d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ######  1、一键清空
+自带一键清空功能，当文本框有内容的时候自动显示出来，可以设置展示/隐藏，图标可更换；具体说明如下：
 
-######  2、密码可见性切换&自定义图标
+|  XML设置   | 代码设置  | 描述  |
+|  ----  | ----  | ----  |
+| app:showClearIcon="true" | showClearIcon(boolean show)| 设置是否显示一键清空图标，默认true |
+| app:clearIcon="@drawable/clear"  | setClearIcon(int res)| 设置一键清空按钮图标 |
+<br>
+######  2、内容可见性切换&自定义图标
+支持自定义内容可见按钮功能，默认隐藏，可以设置展示/隐藏，图标可更换；具体说明如下：
 
-######  3、输入法控制
+|  XML设置   | 代码设置  | 描述  |
+|  ----  | ----  | ----  |
+| app:showSecretIcon="false"  | showSecretIcon(boolean show)| 设置是否显示内容可见控制图标，默认false |
+| app:secretIconVisible="@drawable/visible"<br>  app:secretIcoInvisible="@drawable/invisible"| setSecretIcon(int visibe, int invisibe)| 设置内容隐藏按钮图标 |
+<br>
+
+######  3、添加左右两侧图标&自定义宽高
+
+|  XML设置   | 代码设置  | 描述  |
+|  ----  | ----  | ----  |
+| app:leftIcon="@drawable/icon"<br>app:leftIconWidth="20dp" <br>app:leftIconHeight="20dp" <br>app:leftIconPadding="5dp"  | addLeftIcon(<br>Drawable drawable, <br>int width, <br>int height, <br>int padding, <br>OnClickListener listener<br>)| 添加左侧图标，代码添加支持多个 |
+| 右侧同上（left-right） | addRightIcon|......|
+
+注意：
+1、xml设置图标左右两个各自职能设置一个，点击事件通过代码设置setOnLeftIconClickListener，setOnRightIconClickListener来实现。
+2、在代码添加两侧图标时可以添加多个，直接附带点击事件。
+<br>
+######  4、输入法控制
 
 可以设置编辑模式,默认普通模式
 【普通模式】
 【不可编辑模式】
 【可编辑不弹输入法】（有光标，一般用在语音录入）
 
-######  4、添加校验异常提醒效果
-变色、抖动....
+
 
 <br>
 
-#  编写中....莫急！！！
+######  温馨提示：
 
-<br>
-
+    addTextChangedListener ———— addNewTextChangedListener
+    setOnTouchListener ———— setNewOnTouchListener
+    setOnFocusChangeListener ———— setNewOnFocusChangeListener
+这几个监听需要调用新的方法再能生效。
 #   二、使用方法
 
 #####  1、把maven { url 'https://jitpack.io' }这段代码添加到项目的build.gradle存储库末尾
@@ -165,11 +192,13 @@
 
   dependencies {
         ...
-        implementation 'com.github.barystudio:BSuperView:1.0.3'
+        implementation 'com.github.barystudio:BSuperView:1.0.4'
   }
 
 ```
 
+<br>
+#   [BSuperView](https://github.com/barystudio/BSuperView.git)   如果觉得有用欢迎Star、赞、赏  O(∩_∩)O
 
 * * *
 ![Bary Studio](https://upload-images.jianshu.io/upload_images/10149003-5011dd901f0516ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
