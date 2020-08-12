@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- VerifyEditText-->
-    <dimen name="default_verify_pwd_radius">5dp</dimen>
-    <dimen name="default_verify_text_size">16sp</dimen>
-</resources>

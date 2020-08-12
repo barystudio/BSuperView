@@ -5,12 +5,15 @@ import android.view.View
 import android.widget.RadioGroup
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bary.sample.view.MyColorBar
 import com.bary.ui.view.builder.ShadowBuilder
+import com.bary.ui.view.eum.EditMode
 import com.bary.ui.view.eum.GradientOrientation
 import com.bary.ui.view.eum.GradientType
+import com.bary.ui.view.utils.UnitUtils
 import kotlinx.android.synthetic.main.activity_bedittext.*
 
 class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarChangeListener {
@@ -132,6 +135,20 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
 
         /**--辅助功能--**/
         auxiliaryTitleLayout.setOnClickListener(this)
+        auxiliary_editmode.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
+            override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+                mBEditText.setEditMode(when(checkedId){
+                    R.id.auxiliary_editmode_uneditable ->  EditMode.UNEDITABLE
+                    R.id.auxiliary_editmode_nokeyboard ->  EditMode.NOKEYBOARD
+                    else -> EditMode.NORMAL
+                })
+            }
+
+        })
+
+        mBEditText.setOnLeftIconClickListener {
+            Toast.makeText(this@BEditTextActivity,"左侧",Toast.LENGTH_SHORT).show();
+        }
     }
 
     override fun onClick(v: View?) {

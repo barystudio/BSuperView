@@ -26,6 +26,6 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this,BEditTextActivity::class.java))
     }
     fun showBVerifyEditText(v: View) {
-        startActivity(Intent(this,BVerifyEditTextActivity::class.java))
+
     }
 }

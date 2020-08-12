@@ -3,15 +3,21 @@ package com.bary.ui.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.view.View;
+
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bary.ui.R;
 import com.bary.ui.view.builder.GradientBuilder;
-import com.bary.ui.view.builder.Theme2Builder;
+import com.bary.ui.view.builder.StyleBuilder;
+import com.bary.ui.view.eum.EditMode;
 import com.bary.ui.view.eum.GradientOrientation;
 import com.bary.ui.view.eum.GradientType;
 import com.bary.ui.view.interf.IGradientInterface;
+import com.bary.ui.view.interf.IStyleInterface;
 import com.bary.ui.view.interf.ISuperInterface;
 import com.bary.ui.view.interf.IRoundInterface;
 import com.bary.ui.view.interf.IShadowInterface;
@@ -28,14 +34,14 @@ import java.util.List;
  * author Bary
  * create at 2020/1/21 11:27
  */
-public class BEditText extends AppCompatEditText implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperInterface {
+public class BEditText extends AppCompatEditText implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperInterface, IStyleInterface {
     private RoundBuilder mRoundBuilder;
     private ShadowBuilder mShadowBuilder;
     private BorderBuilder mBorderBuilder;
     private GradientBuilder mGradientBuilder;
-    private Theme2Builder mThemeBuilder;
+    private StyleBuilder mStyleBuilder;
 
-    public int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
+    private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
 
     public BEditText(Context context) {
         this(context, null);
@@ -62,17 +68,19 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
             // 初始化渐变样式
             mGradientBuilder = new GradientBuilder(this, this);
             // 初始化主题样式
-            mThemeBuilder = new Theme2Builder(this, this);
+            mStyleBuilder = new StyleBuilder(this, this);
 
             mShadowBuilder.initAttributes(attr);
             mBorderBuilder.initAttributes(attr);
             mRoundBuilder.initAttributes(attr);
             mGradientBuilder.initAttributes(attr);
-          //  mThemeBuilder.initAttributes(attr);
+            mStyleBuilder.initAttributes(attr);
 
         } finally {
             attr.recycle();
         }
+
+        setFocusableInTouchMode(true);
     }
 
 
@@ -338,6 +346,67 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
         mGradientBuilder.setBackgroundGradientType(type);
     }
 
+
+    @Override
+    public void setEditMode(EditMode mode) {
+        mStyleBuilder.setEditMode(mode);
+    }
+
+    @Override
+    public void showClearIcon(boolean show) {
+        mStyleBuilder.showClearIcon(show);
+    }
+
+    @Override
+    public void showSecretIcon(boolean show) {
+        mStyleBuilder.showSecretIcon(show);
+    }
+
+    @Override
+    public void setSecretIcon(int visibeIcon, int invisibeIcon) {
+        mStyleBuilder.setSecretIcon(visibeIcon,invisibeIcon);
+    }
+
+    @Override
+    public void setClearIcon(int res) {
+        mStyleBuilder.setClearIcon(res);
+    }
+
+    @Override
+    public void addLeftIcon(Drawable drawable, int width, int height, int padding, OnClickListener listener) {
+        mStyleBuilder.addLeftIcon(drawable, width, height, padding, listener);
+    }
+
+    @Override
+    public void addRightIcon(Drawable drawable, int width, int height, int padding, OnClickListener listener) {
+        mStyleBuilder.addRightIcon(drawable, width, height, padding, listener);
+    }
+
+    @Override
+    public void setOnLeftIconClickListener(OnClickListener listener) {
+        mStyleBuilder.setOnLeftIconClickListener(listener);
+    }
+
+    @Override
+    public void setOnRightIconClickListener(OnClickListener listener) {
+        mStyleBuilder.setOnRightIconClickListener(listener);
+    }
+
+    @Override
+    public void addNewTextChangedListener(TextWatcher watcher) {
+        mStyleBuilder.addNewTextChangedListener(watcher);
+    }
+
+    @Override
+    public void setNewOnTouchListener(View.OnTouchListener listener) {
+        mStyleBuilder.setNewOnTouchListener(listener);
+    }
+
+    @Override
+    public void setNewOnFocusChangeListener(View.OnFocusChangeListener listener) {
+        mStyleBuilder.setNewOnFocusChangeListener(listener);
+    }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -385,7 +454,6 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
     @Override
     protected void onDraw(Canvas canvas) {
         mGradientBuilder.updateTextGradient();
-     //   mThemeBuilder.onDraw(canvas);
         super.onDraw(canvas);
     }
 

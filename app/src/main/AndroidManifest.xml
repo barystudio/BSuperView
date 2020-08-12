@@ -18,9 +18,7 @@
         <activity android:name="com.bary.sample.BEditTextActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name="com.bary.sample.BVerifyEditTextActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+
     </application>
 
 </manifest>

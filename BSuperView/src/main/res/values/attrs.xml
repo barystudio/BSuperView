@@ -73,6 +73,7 @@
         <enum name = "radial" value = "2" />
         <enum name = "sweep" value = "4" />
     </attr>
+
     <declare-styleable name="BEditText">
         <attr name="backgroundColor" />
         <attr name="backgroundGradientColor" />
@@ -100,28 +101,27 @@
         <attr name="borderSize" />
         <attr name="borderColor" />
         <attr name="borderHideEdges" />
+
+        <attr name="editMode" format="enum">
+            <enum name = "normal" value = "1" />
+            <enum name = "uneditable" value = "2" />
+            <enum name = "nokeyboard" value = "4" />
+        </attr>
+
+        <attr name="showClearIcon" format="boolean" />
+        <attr name="clearIcon" format="reference" />
+        <attr name="showSecretIcon" format="boolean" />
+        <attr name="secretIconVisible" format="reference" />
+        <attr name="secretIcoInvisible" format="reference" />
+        <attr name="leftIcon" format="reference" />
+        <attr name="leftIconWidth" format="dimension" />
+        <attr name="leftIconHeight" format="dimension" />
+        <attr name="leftIconPadding" format="dimension" />
+        <attr name="rightIcon" format="reference" />
+        <attr name="rightIconWidth" format="dimension" />
+        <attr name="rightIconHeight" format="dimension" />
+        <attr name="rightIconPadding" format="dimension" />
+
     </declare-styleable>
 
-    <!-- 验证码输入框-->
-    <declare-styleable name="BVerifyEditText">
-        <!--输入框的数量，默认是4-->
-        <attr name="verifyNumber" format="integer" />
-        <!--每一个输入框的宽度，默认21dp-->
-        <attr name="verifyWidth" format="dimension|reference" />
-        <!--输入框之间的分割线-->
-        <attr name="verifyDivider" format="reference" />
-        <!--输入框文字颜色，默认黑色-->
-        <attr name="verifyTextColor" format="color|reference" />
-        <!--输入框文字大小，默认16sp-->
-        <attr name="verifyTextSize" format="dimension|reference" />
-        <!--输入框获取焦点时背景-->
-        <attr name="verifyBackgroundFocus" format="reference" />
-        <!--输入框没有焦点时背景-->
-        <attr name="verifyBackgroundNormal" format="reference" />
-        <!--是否是密码模式, 默认是false-->
-        <attr name="verifyIsPassword" format="boolean" />
-        <!--密码模式时,圆的半径，默认是5dp-->
-        <attr name="verifyPasswordRadius" format="dimension|reference" />
-    </declare-styleable>
-    <attr name="BVerifyEditTextStyle" format="reference" />
 </resources>

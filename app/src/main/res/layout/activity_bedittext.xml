@@ -58,6 +58,7 @@
             android:paddingRight="20dp"
             android:textColorHint="@color/black"
             app:backgroundColor="@color/white"
+            app:leftIcon="@drawable/test_icon_customview_cb_on"
            >
 
         </com.bary.ui.view.BEditText>
@@ -829,6 +830,54 @@
                 android:orientation="vertical"
                 android:padding="45px"
                 android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="编辑模式 :" />
+
+                    <RadioGroup
+                        android:id="@+id/auxiliary_editmode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/auxiliary_editmode_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:checked="true"
+                            android:text="普通模式"
+                            android:textColor="#666666" />
+
+                        <RadioButton
+                            android:id="@+id/auxiliary_editmode_uneditable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="不可编辑模式"
+                            android:textColor="#666666" />
+
+                        <RadioButton
+                            android:id="@+id/auxiliary_editmode_nokeyboard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="可编辑不弹输入法\n（有光标，一般用在语音录入）"
+                            android:textColor="#666666" />
+                    </RadioGroup>
+
+
+                </LinearLayout>
 
             </LinearLayout>
             <View style="@style/HorizontalLine" />
