@@ -46,18 +46,7 @@
             android:background="#ffffff"
             android:onClick="showBEditText"
             />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="2、BVerifyEditText-验证输入框"
-            android:textSize="15dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:background="#ffffff"
-            android:onClick="showBVerifyEditText"
-            />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -59,6 +59,7 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
     private int mLeftIcon, mRightIcon;
     private float mLeftIconWidth, mLeftIconHeight, mLeftIconPadding, mRightIconWidth, mRightIconHeight, mRightIconPadding;
     private EditMode mEditMode;
+
     public StyleBuilder(View view, ISuperInterface parentInterface) {
         super(view, parentInterface);
         mEditText = (EditText) mView;
@@ -67,6 +68,7 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
 
     /**
      * 初始化样式属性
+     *
      * @param attr 属性集合
      */
     @Override
@@ -178,6 +180,11 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
     @Override
     public void showSecretIcon(boolean show) {
         mSecretIconEnable = show;
+        if (mEditText.getText().length() > 0 && mClearIconEnable) {
+            rightIconBeans.showIcon(ICON_CLEAR);
+        } else {
+            rightIconBeans.hideIcon(ICON_CLEAR);
+        }
         updateIcon();
     }
 
@@ -235,7 +242,6 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
     }
 
 
-
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
@@ -251,20 +257,12 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
      * 更新清除按钮图标显示
      */
     private void updateIcon() {
-        if (mSecretIconEnable) {
-            rightIconBeans.showIcon(ICON_SECRET);
-        } else {
-            rightIconBeans.hideIcon(ICON_SECRET);
-        }
-        mEditText.post(new Runnable() {
-            @Override
-            public void run() {
-                Drawable[] drawables = mEditText.getCompoundDrawables();
-                Drawable right = rightIconBeans.getDrawable();
-                Drawable left = leftIconBeans.getDrawable();
-                mEditText.setCompoundDrawables(left, drawables[1], right, drawables[3]);
-            }
-        });
+
+
+        Drawable[] drawables = mEditText.getCompoundDrawables();
+        Drawable right = rightIconBeans.getDrawable();
+        Drawable left = leftIconBeans.getDrawable();
+        mEditText.setCompoundDrawables(left, drawables[1], right, drawables[3]);
     }
 
 
@@ -283,8 +281,9 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
             return mSecretInvisibleRes;
         }
     }
+
     private void changeEditMode() {
-        switch (mEditMode){
+        switch (mEditMode) {
             case NORMAL:
                 mEditText.setEnabled(true);
                 try {

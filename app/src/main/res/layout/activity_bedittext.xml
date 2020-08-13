@@ -58,7 +58,6 @@
             android:paddingRight="20dp"
             android:textColorHint="@color/black"
             app:backgroundColor="@color/white"
-            app:leftIcon="@drawable/test_icon_customview_cb_on"
            >
 
         </com.bary.ui.view.BEditText>
@@ -829,8 +828,85 @@
                 android:background="#f9f9f9"
                 android:orientation="vertical"
                 android:padding="45px"
-                android:visibility="visible">
+                android:visibility="gone">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="显示一键清除 :" />
+
+                    <ImageView
+                        android:id="@+id/auxiliary_clear"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30px"
+                        android:background="@drawable/test_customview_cb_select" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="显示隐藏内容 :" />
+
+                    <ImageView
+                        android:id="@+id/auxiliary_secret"
+                        android:layout_width="50px"
+                        android:layout_height="50px"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="30px"
+                        android:background="@drawable/test_customview_cb_select" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="添加两侧图标 :" />
+
+                    <TextView
+                        android:id="@+id/auxiliary_icon_left"
+                        android:layout_width="150px"
+                        android:layout_height="70px"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_marginLeft="30px"
+                        android:text="左侧"
+                        android:background="@drawable/ic_launcher_background"
+                        />
+
+                    <TextView
+                        android:id="@+id/auxiliary_icon_right"
+                        android:layout_width="150px"
+                        android:layout_height="70px"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_marginLeft="30px"
+                        android:text="右侧"
+                        android:background="@drawable/ic_launcher_background"
+                        />
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -881,8 +957,11 @@
 
             </LinearLayout>
             <View style="@style/HorizontalLine" />
-            <View android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+            <TextView android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:autoLink="web"
+                android:text="文档简介：https://www.jianshu.com/p/ad0eb5f43cc0"/>
         </LinearLayout>
     </ScrollView>
 

@@ -39,6 +39,7 @@
   />
 ```
 <br>
+
 ####  ◆ 描边
 
 ![描边演示.gif](https://upload-images.jianshu.io/upload_images/10149003-60db359459bc4a3c.gif?imageMogr2/auto-orient/strip)
@@ -59,6 +60,7 @@
   />
 ```
 <br>
+
 ####  ◆ 阴影
 
 ![阴影演示.gif](https://upload-images.jianshu.io/upload_images/10149003-cbd2a8455a9bfbb6.gif?imageMogr2/auto-orient/strip)
@@ -89,6 +91,7 @@
   />
 ```
 <br>
+
 ####  ◆ 渐变色
 
 ![渐变色演示.gif](https://upload-images.jianshu.io/upload_images/10149003-4f596fc33578e1de.gif?imageMogr2/auto-orient/strip)
@@ -124,6 +127,7 @@
   />
 ```
 <br>
+
 ####  ◆ 辅助功能
 
 ![一键清空&内容可见.jpg](https://upload-images.jianshu.io/upload_images/10149003-c69a2db5a22e8b9d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -198,6 +202,7 @@
 ```
 
 <br>
+
 #   [BSuperView](https://github.com/barystudio/BSuperView.git)   如果觉得有用欢迎Star、赞、赏  O(∩_∩)O
 
 * * *

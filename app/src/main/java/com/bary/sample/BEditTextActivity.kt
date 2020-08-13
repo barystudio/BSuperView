@@ -135,6 +135,11 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
 
         /**--辅助功能--**/
         auxiliaryTitleLayout.setOnClickListener(this)
+        auxiliary_clear.setOnClickListener(this)
+        auxiliary_secret.setOnClickListener(this)
+        auxiliary_icon_left.setOnClickListener(this)
+        auxiliary_icon_right.setOnClickListener(this)
+        auxiliary_clear.isSelected = true
         auxiliary_editmode.setOnCheckedChangeListener(object : RadioGroup.OnCheckedChangeListener {
             override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
                 mBEditText.setEditMode(when(checkedId){
@@ -146,9 +151,7 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
 
         })
 
-        mBEditText.setOnLeftIconClickListener {
-            Toast.makeText(this@BEditTextActivity,"左侧",Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     override fun onClick(v: View?) {
@@ -182,6 +185,20 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
             changeGradientInfo();
         } else if (i == R.id.auxiliaryTitleLayout) {
             changeInfoVisible(auxiliaryTitleIv, auxiliaryInfoLayout)
+        } else if (i == R.id.auxiliary_clear) {
+            auxiliary_clear.isSelected = !auxiliary_clear.isSelected
+            mBEditText.showClearIcon(auxiliary_clear.isSelected)
+        } else if (i == R.id.auxiliary_secret) {
+            auxiliary_secret.isSelected = !auxiliary_secret.isSelected
+            mBEditText.showSecretIcon(auxiliary_secret.isSelected)
+        } else if (i == R.id.auxiliary_icon_left) {
+            mBEditText.addLeftIcon(ContextCompat.getDrawable(this,R.drawable.barystudio_logo),100,100,10){
+                Toast.makeText(this@BEditTextActivity,"点击",Toast.LENGTH_SHORT).show()
+            }
+        } else if (i == R.id.auxiliary_icon_right) {
+            mBEditText.addRightIcon(ContextCompat.getDrawable(this,R.drawable.barystudio_logo),100,100,10){
+                Toast.makeText(this@BEditTextActivity,"点击",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
