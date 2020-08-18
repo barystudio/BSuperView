@@ -1,13 +1,12 @@
-package com.bary.ui.view.builder;
+package com.bary.ui.layout.builder;
 
-import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.view.View;
 
 import com.bary.ui.R;
-import com.bary.ui.view.interf.IShadowInterface;
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.layout.interf.ISuperLayoutInterface;
+import com.bary.ui.common.interf.IShadowInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
  * author Bary
  * date on 2020/1/21.
  */
-public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
+public class ShadowLayoutBuilder extends BaseLayoutBuilder implements IShadowInterface {
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
     public static final int TOP = 4;
@@ -30,7 +29,7 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
     private float mShadowDx, mShadowDy;
     private boolean isShowShadow = false;
 
-    public ShadowBuilder(View view, ISuperInterface parentInterface) {
+    public ShadowLayoutBuilder(View view, ISuperLayoutInterface parentInterface) {
         super(view, parentInterface);
     }
 
@@ -44,23 +43,23 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
             return;
         }
         //隐藏某些边阴影
-        mShadowHideEdges = attr.getInt(getStyleableId("shadowHideEdges"), -1);
+        mShadowHideEdges = attr.getInt(getStyleableId("bsv_shadowHideEdges"), -1);
         //默认扩散区域宽度
-        mShadowSize = attr.getDimension(getStyleableId("shadowSize"), 0);
+        mShadowSize = attr.getDimension(getStyleableId("bsv_shadowSize"), 0);
         //单独设置横向
-        mShadowXSize = attr.getDimension(getStyleableId("shadowXSize"), 0);
+        mShadowXSize = attr.getDimension(getStyleableId("bsv_shadowXSize"), 0);
         //单独设置纵向
-        mShadowYSize = attr.getDimension(getStyleableId("shadowYSize"), 0);
+        mShadowYSize = attr.getDimension(getStyleableId("bsv_shadowYSize"), 0);
         //x轴偏移量
-        mShadowDx = attr.getDimension(getStyleableId("shadowDx"), 0);
+        mShadowDx = attr.getDimension(getStyleableId("bsv_shadowDx"), 0);
         //y轴偏移量
-        mShadowDy = attr.getDimension(getStyleableId("shadowDy"), 0);
+        mShadowDy = attr.getDimension(getStyleableId("bsv_shadowDy"), 0);
         //阴影颜色
-        mShadowColor = attr.getColor(getStyleableId("shadowColor"), mView.getResources().getColor(R.color.black));
+        mShadowColor = attr.getColor(getStyleableId("bsv_shadowColor"), mView.getResources().getColor(R.color.bsv_black));
         //阴影透明度
-        mShadowAlpha = attr.getFloat(getStyleableId("shadowAlpha"), 1);
+        mShadowAlpha = attr.getFloat(getStyleableId("bsv_shadowAlpha"), 1);
         //背景填充色
-        mBackGroundColor = attr.getColor(getStyleableId("backgroundColor"), Color.TRANSPARENT);
+        mBackGroundColor = attr.getColor(getStyleableId("bsv_backgroundColor"), Color.TRANSPARENT);
 
         if(mShadowSize>0){
             mShadowXSize = mShadowSize;
@@ -68,6 +67,11 @@ public class ShadowBuilder extends BaseBuilder implements IShadowInterface {
         }
         initShadowHideEdges();
         setShadowColor(mShadowColor);
+        if(mShadowXSize==0&&mShadowYSize==0){
+            isShowShadow = false;
+        }else{
+            isShowShadow = true;
+        }
     }
 
     @Override

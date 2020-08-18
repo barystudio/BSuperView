@@ -38,29 +38,33 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
-            android:text="BEditText 功能展示"
+            android:text="BXXXLayout 功能展示"
             android:textColor="@color/bsv_white"
             android:textSize="20dp" />
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="250dp">
 
-        <com.bary.ui.view.BEditText
-            android:id="@+id/mBEditText"
+        <com.bary.ui.layout.BLinearLayout
+            android:id="@+id/mBLinearLayout"
             android:layout_width="300dp"
-            android:layout_height="70dp"
+            android:layout_height="200dp"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:hint="请输入..."
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:textColorHint="@color/bsv_black"
-            app:bsv_backgroundColor="@color/bsv_white"
            >
 
-        </com.bary.ui.view.BEditText>
+        <TextView
+            android:id="@+id/mBEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:background="@drawable/image_bg"
+            android:textColorHint="@color/bsv_black"
+            />
+        </com.bary.ui.layout.BLinearLayout>
 
     </RelativeLayout>
 
@@ -584,384 +588,13 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <View style="@style/HorizontalLine" />
 
-            <LinearLayout
-                android:id="@+id/gradientTitleLayout"
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:orientation="horizontal"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="渐变色属性 :"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/gradientTitleIv"
-                    android:layout_width="60px"
-                    android:layout_height="60px"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/test_open_select" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gradientInfoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
-                android:layout_marginBottom="30px"
-                android:background="#f9f9f9"
-                android:orientation="vertical"
-                android:padding="45px"
-                android:visibility="gone">
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="显示渐变 :" />
-
-                    <ImageView
-                        android:id="@+id/showGradient"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="30px"
-                        android:background="@drawable/test_customview_cb_select" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="种类切换 :" />
-
-                    <RadioGroup
-                        android:id="@+id/gradient_kind"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/gradient_kind_bg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="true"
-                            android:text="背景"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/gradient_kind_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="文字"
-                            android:textColor="#666666" />
-
-
-                    </RadioGroup>
-
-
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#bbbbbb"
-                    android:textSize="12dp"
-                    android:gravity="right"
-                    android:text="为了演示效果采用切换的方式，两者可以共存" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="渐变类型 :" />
-
-                    <RadioGroup
-                        android:id="@+id/gradient_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/gradient_type_l"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="true"
-                            android:text="线性"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/gradient_type_r"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="圆环"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/gradient_type_s"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="角度"
-                            android:textColor="#666666" />
-                    </RadioGroup>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="渐变方向 :" />
-
-                    <RadioGroup
-                        android:id="@+id/gradient_orientation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="horizontal">
-
-                        <RadioButton
-                            android:id="@+id/gradient_orientation_h"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="true"
-                            android:text="水平"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/gradient_orientation_v"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="垂直"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/gradient_orientation_d"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="对角"
-                            android:textColor="#666666" />
-                    </RadioGroup>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-            <View style="@style/HorizontalLine" />
-            <LinearLayout
-                android:id="@+id/auxiliaryTitleLayout"
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:orientation="horizontal"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="辅助功能 :"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/auxiliaryTitleIv"
-                    android:layout_width="60px"
-                    android:layout_height="60px"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/test_open_select" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/auxiliaryInfoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
-                android:layout_marginBottom="30px"
-                android:background="#f9f9f9"
-                android:orientation="vertical"
-                android:padding="45px"
-                android:visibility="gone">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="显示一键清除 :" />
-
-                    <ImageView
-                        android:id="@+id/auxiliary_clear"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="30px"
-                        android:background="@drawable/test_customview_cb_select" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="显示隐藏内容 :" />
-
-                    <ImageView
-                        android:id="@+id/auxiliary_secret"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="30px"
-                        android:background="@drawable/test_customview_cb_select" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="添加两侧图标 :" />
-
-                    <TextView
-                        android:id="@+id/auxiliary_icon_left"
-                        android:layout_width="150px"
-                        android:layout_height="70px"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_marginLeft="30px"
-                        android:text="左侧"
-                        android:background="@drawable/ic_launcher_background"
-                        />
-
-                    <TextView
-                        android:id="@+id/auxiliary_icon_right"
-                        android:layout_width="150px"
-                        android:layout_height="70px"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_marginLeft="30px"
-                        android:text="右侧"
-                        android:background="@drawable/ic_launcher_background"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="编辑模式 :" />
-
-                    <RadioGroup
-                        android:id="@+id/auxiliary_editmode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="true"
-                            android:text="普通模式"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_uneditable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="不可编辑模式"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_nokeyboard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="可编辑不弹输入法\n（有光标，一般用在语音录入）"
-                            android:textColor="#666666" />
-                    </RadioGroup>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
             <View style="@style/HorizontalLine" />
             <TextView android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:gravity="center"
                 android:autoLink="web"
-                android:text="文档简介：https://www.jianshu.com/p/ad0eb5f43cc0"/>
+                android:text="文档简介：https://www.jianshu.com/p/4ab558fd3855"/>
         </LinearLayout>
     </ScrollView>
 

@@ -3,15 +3,12 @@ package com.bary.ui.view.builder;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
-import android.graphics.Paint;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +16,7 @@ import android.widget.TextView;
 import com.bary.ui.view.eum.GradientOrientation;
 import com.bary.ui.view.eum.GradientType;
 import com.bary.ui.view.interf.IGradientInterface;
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.view.interf.ISuperViewInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +28,7 @@ import java.util.List;
  * author Bary
  * date on 2020/1/21.
  */
-public class GradientBuilder extends BaseBuilder implements IGradientInterface {
+public class GradientViewBuilder extends BaseViewBuilder implements IGradientInterface {
 
     public String mLastGradientFlag = "";
     private List<String> mTextGradientColor = new ArrayList<>();
@@ -42,7 +39,7 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
     private GradientType mTextGradientType;
 
 
-    public GradientBuilder(View view, ISuperInterface parentInterface) {
+    public GradientViewBuilder(View view, ISuperViewInterface parentInterface) {
         super(view, parentInterface);
     }
 
@@ -51,12 +48,12 @@ public class GradientBuilder extends BaseBuilder implements IGradientInterface {
         if (attr == null) {
             return;
         }
-        String textGradientColor = attr.getString(getStyleableId("textGradientColor"));
-        mTextGradientOrientation = GradientOrientation.fromId(attr.getInt(getStyleableId("textGradientOrientation"), 1));
-        mTextGradientType = GradientType.fromId(attr.getInt(getStyleableId("textGradientType"), 1));
-        String backgroundGradientColor = attr.getString(getStyleableId("backgroundGradientColor"));
-        mBackgroundGradientOrientation = GradientOrientation.fromId(attr.getInt(getStyleableId("backgroundGradientOrientation"), 1));
-        mBackgroundGradientType = GradientType.fromId(attr.getInt(getStyleableId("backgroundGradientType"), 1));
+        String textGradientColor = attr.getString(getStyleableId("bsv_textGradientColor"));
+        mTextGradientOrientation = GradientOrientation.fromId(attr.getInt(getStyleableId("bsv_textGradientOrientation"), 1));
+        mTextGradientType = GradientType.fromId(attr.getInt(getStyleableId("bsv_textGradientType"), 1));
+        String backgroundGradientColor = attr.getString(getStyleableId("bsv_backgroundGradientColor"));
+        mBackgroundGradientOrientation = GradientOrientation.fromId(attr.getInt(getStyleableId("bsv_backgroundGradientOrientation"), 1));
+        mBackgroundGradientType = GradientType.fromId(attr.getInt(getStyleableId("bsv_backgroundGradientType"), 1));
         if (!TextUtils.isEmpty(textGradientColor)) {
             textGradientColor = textGradientColor.replaceAll("\\s*", "").replaceAll("#", "");
             String[] colors = textGradientColor.split("\\|");

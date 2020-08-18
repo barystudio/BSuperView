@@ -1,6 +1,5 @@
 package com.bary.ui.view.interf;
 
-import com.bary.ui.view.builder.GradientBuilder;
 import com.bary.ui.view.eum.GradientOrientation;
 import com.bary.ui.view.eum.GradientType;
 

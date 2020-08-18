@@ -1,4 +1,4 @@
-package com.bary.ui.view.interf;
+package com.bary.ui.common.interf;
 
 /**
  * 描边方法定义

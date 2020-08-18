@@ -3,19 +3,19 @@ package com.bary.ui.view.builder;
 import android.content.res.TypedArray;
 import android.view.View;
 
-import com.bary.ui.view.interf.IRoundInterface;
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.common.interf.IRoundInterface;
+import com.bary.ui.view.interf.ISuperViewInterface;
 
 
 /**
  * author Bary
  * date on 2020/1/21.
  */
-public class RoundBuilder extends BaseBuilder implements IRoundInterface {
+public class RoundViewBuilder extends BaseViewBuilder implements IRoundInterface {
 
     private float mRoundradius,mTopLeftRadius,mTopRightRadius,mBottomLeftRadius,mBottomRightRadius;
 
-    public RoundBuilder(View view, ISuperInterface parentInterface) {
+    public RoundViewBuilder(View view, ISuperViewInterface parentInterface) {
         super(view, parentInterface);
     }
 
@@ -24,11 +24,11 @@ public class RoundBuilder extends BaseBuilder implements IRoundInterface {
         if (attr == null) {
             return;
         }
-        mRoundradius = (int) attr.getDimension(getStyleableId("roundRadius"), 0);
-        mTopLeftRadius = (int) attr.getDimension(getStyleableId("topLeftRadius"), 0);
-        mTopRightRadius = (int) attr.getDimension(getStyleableId("topRightRadius"), 0);
-        mBottomLeftRadius = (int) attr.getDimension(getStyleableId("bottomLeftRadius"), 0);
-        mBottomRightRadius = (int) attr.getDimension(getStyleableId("bottomRightRadius"), 0);
+        mRoundradius = (int) attr.getDimension(getStyleableId("bsv_roundRadius"), 0);
+        mTopLeftRadius = (int) attr.getDimension(getStyleableId("bsv_topLeftRadius"), 0);
+        mTopRightRadius = (int) attr.getDimension(getStyleableId("bsv_topRightRadius"), 0);
+        mBottomLeftRadius = (int) attr.getDimension(getStyleableId("bsv_bottomLeftRadius"), 0);
+        mBottomRightRadius = (int) attr.getDimension(getStyleableId("bsv_bottomRightRadius"), 0);
         if(mRoundradius>0){
             mTopLeftRadius = mTopRightRadius = mBottomLeftRadius = mBottomRightRadius = mRoundradius;
         }

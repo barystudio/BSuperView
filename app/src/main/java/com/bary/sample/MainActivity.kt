@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             ContextCompat.getColor(this, R.color.colorPrimary),
             false
         )
-        logo.setColorFilter(ContextCompat.getColor(this,R.color.white))
+        logo.setColorFilter(ContextCompat.getColor(this,R.color.bsv_white))
 
     }
 
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     fun showBEditText(v: View) {
         startActivity(Intent(this,BEditTextActivity::class.java))
     }
-    fun showBVerifyEditText(v: View) {
-
+    fun showBLinearLayout(v: View) {
+        startActivity(Intent(this,BLinearLayoutActivity::class.java))
     }
 }

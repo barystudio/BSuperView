@@ -4,15 +4,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.Selection;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.SpannedString;
 import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.text.style.AbsoluteSizeSpan;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -25,7 +20,7 @@ import com.bary.ui.view.bean.LeftIconBeans;
 import com.bary.ui.view.bean.RightIconBeans;
 import com.bary.ui.view.eum.EditMode;
 import com.bary.ui.view.interf.IStyleInterface;
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.view.interf.ISuperViewInterface;
 import com.bary.ui.view.utils.UnitUtils;
 
 import java.lang.reflect.Method;
@@ -36,7 +31,7 @@ import java.lang.reflect.Method;
  * author Bary
  * date on 2020/1/21.
  */
-public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.OnTouchListener, TextWatcher {
+public class StyleViewBuilder extends BaseViewBuilder implements IStyleInterface, View.OnTouchListener, TextWatcher {
     private EditText mEditText;
     private RightIconBeans rightIconBeans;
     private LeftIconBeans leftIconBeans;
@@ -60,7 +55,7 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
     private float mLeftIconWidth, mLeftIconHeight, mLeftIconPadding, mRightIconWidth, mRightIconHeight, mRightIconPadding;
     private EditMode mEditMode;
 
-    public StyleBuilder(View view, ISuperInterface parentInterface) {
+    public StyleViewBuilder(View view, ISuperViewInterface parentInterface) {
         super(view, parentInterface);
         mEditText = (EditText) mView;
         mIconWidth = UnitUtils.dp2px(mEditText.getContext(), MAX_ICON_WIDTH);
@@ -76,26 +71,26 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
         if (attr == null) {
             return;
         }
-        mEditMode = EditMode.fromId(attr.getInt(getStyleableId("editMode"), 1));
+        mEditMode = EditMode.fromId(attr.getInt(getStyleableId("bsv_editMode"), 1));
 
-        mClearIconEnable = attr.getBoolean(getStyleableId("showClearIcon"), true);
-        mSecretIconEnable = attr.getBoolean(getStyleableId("showSecretIcon"), false);
-        mClearIconRes = attr.getResourceId(getStyleableId("clearIcon"), R.drawable.fty_edit_icon_del);
-        mSecretVisibleRes = attr.getResourceId(getStyleableId("secretIconVisible"), R.drawable.fty_edit_icon_visible);
-        mSecretInvisibleRes = attr.getResourceId(getStyleableId("secretIcoInvisible"), R.drawable.fty_edit_icon_invisible);
+        mClearIconEnable = attr.getBoolean(getStyleableId("bsv_showClearIcon"), true);
+        mSecretIconEnable = attr.getBoolean(getStyleableId("bsv_showSecretIcon"), false);
+        mClearIconRes = attr.getResourceId(getStyleableId("bsv_clearIcon"), R.drawable.bsv_edit_icon_del);
+        mSecretVisibleRes = attr.getResourceId(getStyleableId("bsv_secretIconVisible"), R.drawable.bsv_edit_icon_visible);
+        mSecretInvisibleRes = attr.getResourceId(getStyleableId("bsv_secretIcoInvisible"), R.drawable.bsv_edit_icon_invisible);
 
-        mLeftIcon = attr.getResourceId(getStyleableId("leftIcon"), 0);
-        mLeftIconWidth = attr.getDimension(getStyleableId("leftIconWidth"), mIconWidth);
-        mLeftIconHeight = attr.getDimension(getStyleableId("leftIconHeight"), mIconWidth);
-        mLeftIconPadding = attr.getDimension(getStyleableId("leftIconPadding"), (int) UnitUtils.dp2px(mView.getContext(), DEF_DRAWABLE_PADDING));
+        mLeftIcon = attr.getResourceId(getStyleableId("bsv_leftIcon"), 0);
+        mLeftIconWidth = attr.getDimension(getStyleableId("bsv_leftIconWidth"), mIconWidth);
+        mLeftIconHeight = attr.getDimension(getStyleableId("bsv_leftIconHeight"), mIconWidth);
+        mLeftIconPadding = attr.getDimension(getStyleableId("bsv_leftIconPadding"), (int) UnitUtils.dp2px(mView.getContext(), DEF_DRAWABLE_PADDING));
 
-        mRightIcon = attr.getResourceId(getStyleableId("rightIcon"), 0);
-        mRightIconWidth = attr.getDimension(getStyleableId("rightIconWidth"), mIconWidth);
-        mRightIconHeight = attr.getDimension(getStyleableId("rightIconHeight"), mIconWidth);
-        mRightIconPadding = attr.getDimension(getStyleableId("rightIconPadding"), (int) UnitUtils.dp2px(mView.getContext(), DEF_DRAWABLE_PADDING));
+        mRightIcon = attr.getResourceId(getStyleableId("bsv_rightIcon"), 0);
+        mRightIconWidth = attr.getDimension(getStyleableId("bsv_rightIconWidth"), mIconWidth);
+        mRightIconHeight = attr.getDimension(getStyleableId("bsv_rightIconHeight"), mIconWidth);
+        mRightIconPadding = attr.getDimension(getStyleableId("bsv_rightIconPadding"), (int) UnitUtils.dp2px(mView.getContext(), DEF_DRAWABLE_PADDING));
 
         // 获取自定义属性
-        mView.setTag(R.id.fty_id_edit_show_password, false);
+        mView.setTag(R.id.bsv_id_edit_show_password, false);
         leftIconBeans = new LeftIconBeans(mEditText);
         leftIconBeans.setDrawablePadding((int) mLeftIconPadding);
 
@@ -110,14 +105,14 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
         rightIconBeans.addIcon(ICON_SECRET, getSecretIconRes(), mIconWidth, mIconWidth, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((boolean) mEditText.getTag(R.id.fty_id_edit_show_password)) {
+                if ((boolean) mEditText.getTag(R.id.bsv_id_edit_show_password)) {
                     // 隐藏密码
                     mEditText.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    mEditText.setTag(R.id.fty_id_edit_show_password, false);
+                    mEditText.setTag(R.id.bsv_id_edit_show_password, false);
                 } else {
                     // 显示密码
                     mEditText.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                    mEditText.setTag(R.id.fty_id_edit_show_password, true);
+                    mEditText.setTag(R.id.bsv_id_edit_show_password, true);
                 }
                 rightIconBeans.updateRes(ICON_SECRET, getSecretIconRes());
                 // 使光标始终在最后位置
@@ -275,7 +270,7 @@ public class StyleBuilder extends BaseBuilder implements IStyleInterface, View.O
 
 
     private int getSecretIconRes() {
-        if ((boolean) mView.getTag(R.id.fty_id_edit_show_password)) {
+        if ((boolean) mView.getTag(R.id.bsv_id_edit_show_password)) {
             return mSecretVisibleRes;
         } else {
             return mSecretInvisibleRes;

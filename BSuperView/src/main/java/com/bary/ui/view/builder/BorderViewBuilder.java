@@ -2,11 +2,10 @@ package com.bary.ui.view.builder;
 
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.RectF;
 import android.view.View;
 
-import com.bary.ui.view.interf.IBorderInterface;
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.common.interf.IBorderInterface;
+import com.bary.ui.view.interf.ISuperViewInterface;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +15,7 @@ import java.util.Map;
  * author Bary
  * date on 2020/1/21.
  */
-public class BorderBuilder extends BaseBuilder implements IBorderInterface {
+public class BorderViewBuilder extends BaseViewBuilder implements IBorderInterface {
     public static final int LEFT = 1;
     public static final int RIGHT = 2;
     public static final int TOP = 4;
@@ -28,7 +27,7 @@ public class BorderBuilder extends BaseBuilder implements IBorderInterface {
     private boolean isShowBorder = false;
     private int mBorderHideEdges;
 
-    public BorderBuilder(View view, ISuperInterface parentInterface) {
+    public BorderViewBuilder(View view, ISuperViewInterface parentInterface) {
         super(view, parentInterface);
     }
 
@@ -43,10 +42,10 @@ public class BorderBuilder extends BaseBuilder implements IBorderInterface {
             return;
         }
         //默认扩散区域宽度
-        mBorderSize = attr.getDimension(getStyleableId("borderSize"), 0);
-        mBorderColor = attr.getColor(getStyleableId("borderColor"), Color.BLACK);
+        mBorderSize = attr.getDimension(getStyleableId("bsv_borderSize"), 0);
+        mBorderColor = attr.getColor(getStyleableId("bsv_borderColor"), Color.BLACK);
         //隐藏某些边描边
-        mBorderHideEdges = attr.getInt(getStyleableId("borderHideEdges"), -1);
+        mBorderHideEdges = attr.getInt(getStyleableId("bsv_borderHideEdges"), -1);
 
         initBorderHideEdges();
     }

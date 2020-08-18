@@ -11,20 +11,21 @@ import android.view.View;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import com.bary.ui.R;
-import com.bary.ui.view.builder.GradientBuilder;
-import com.bary.ui.view.builder.StyleBuilder;
+import com.bary.ui.common.bean.Padding;
+import com.bary.ui.view.builder.GradientViewBuilder;
+import com.bary.ui.view.builder.StyleViewBuilder;
 import com.bary.ui.view.eum.EditMode;
 import com.bary.ui.view.eum.GradientOrientation;
 import com.bary.ui.view.eum.GradientType;
 import com.bary.ui.view.interf.IGradientInterface;
 import com.bary.ui.view.interf.IStyleInterface;
-import com.bary.ui.view.interf.ISuperInterface;
-import com.bary.ui.view.interf.IRoundInterface;
-import com.bary.ui.view.interf.IShadowInterface;
-import com.bary.ui.view.interf.IBorderInterface;
-import com.bary.ui.view.builder.RoundBuilder;
-import com.bary.ui.view.builder.ShadowBuilder;
-import com.bary.ui.view.builder.BorderBuilder;
+import com.bary.ui.view.interf.ISuperViewInterface;
+import com.bary.ui.common.interf.IRoundInterface;
+import com.bary.ui.common.interf.IShadowInterface;
+import com.bary.ui.common.interf.IBorderInterface;
+import com.bary.ui.view.builder.RoundViewBuilder;
+import com.bary.ui.view.builder.ShadowViewBuilder;
+import com.bary.ui.view.builder.BorderViewBuilder;
 
 import java.util.List;
 
@@ -34,12 +35,12 @@ import java.util.List;
  * author Bary
  * create at 2020/1/21 11:27
  */
-public class BEditText extends AppCompatEditText implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperInterface, IStyleInterface {
-    private RoundBuilder mRoundBuilder;
-    private ShadowBuilder mShadowBuilder;
-    private BorderBuilder mBorderBuilder;
-    private GradientBuilder mGradientBuilder;
-    private StyleBuilder mStyleBuilder;
+public class BEditText extends AppCompatEditText implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperViewInterface, IStyleInterface {
+    private RoundViewBuilder mRoundBuilder;
+    private ShadowViewBuilder mShadowBuilder;
+    private BorderViewBuilder mBorderBuilder;
+    private GradientViewBuilder mGradientBuilder;
+    private StyleViewBuilder mStyleBuilder;
 
     private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
 
@@ -60,15 +61,15 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
         TypedArray attr = context.obtainStyledAttributes(attrs, R.styleable.BEditText);
         try {
             // 初始化阴影样式
-            mShadowBuilder = new ShadowBuilder(this, this);
+            mShadowBuilder = new ShadowViewBuilder(this, this);
             // 初始化基础样式
-            mBorderBuilder = new BorderBuilder(this, this);
+            mBorderBuilder = new BorderViewBuilder(this, this);
             // 初始化描边样式
-            mRoundBuilder = new RoundBuilder(this, this);
+            mRoundBuilder = new RoundViewBuilder(this, this);
             // 初始化渐变样式
-            mGradientBuilder = new GradientBuilder(this, this);
+            mGradientBuilder = new GradientViewBuilder(this, this);
             // 初始化主题样式
-            mStyleBuilder = new StyleBuilder(this, this);
+            mStyleBuilder = new StyleViewBuilder(this, this);
 
             mShadowBuilder.initAttributes(attr);
             mBorderBuilder.initAttributes(attr);
@@ -423,22 +424,22 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
     }
 
     @Override
-    public RoundBuilder getBasicStyle() {
+    public RoundViewBuilder getRoundStyle() {
         return mRoundBuilder;
     }
 
     @Override
-    public ShadowBuilder getShadowStyle() {
+    public ShadowViewBuilder getShadowStyle() {
         return mShadowBuilder;
     }
 
     @Override
-    public BorderBuilder getBorderStyle() {
+    public BorderViewBuilder getBorderStyle() {
         return mBorderBuilder;
     }
 
     @Override
-    public GradientBuilder getGradientStyle() {
+    public GradientViewBuilder getGradientStyle() {
         return mGradientBuilder;
     }
 

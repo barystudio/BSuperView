@@ -9,11 +9,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bary.sample.view.MyColorBar
-import com.bary.ui.view.builder.ShadowBuilder
+import com.bary.ui.view.builder.ShadowViewBuilder
 import com.bary.ui.view.eum.EditMode
 import com.bary.ui.view.eum.GradientOrientation
 import com.bary.ui.view.eum.GradientType
-import com.bary.ui.view.utils.UnitUtils
 import kotlinx.android.synthetic.main.activity_bedittext.*
 
 class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarChangeListener {
@@ -32,7 +31,7 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
     }
 
     fun initView() {
-        back.setColorFilter(ContextCompat.getColor(this, R.color.white))
+        back.setColorFilter(ContextCompat.getColor(this, R.color.bsv_white))
 
         /**--圆角--**/
         //初始化圆角尺寸
@@ -61,10 +60,10 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         borderhide_left.setOnClickListener(this)
         borderhide_right.setOnClickListener(this)
         borderhide_bottom.setOnClickListener(this)
-        borderhide_top.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.TOP)
-        borderhide_left.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.LEFT)
-        borderhide_right.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.RIGHT)
-        borderhide_bottom.isSelected = mBEditText.isHiddenBorderEdges(ShadowBuilder.BOTTOM)
+        borderhide_top.isSelected = mBEditText.isHiddenBorderEdges(ShadowViewBuilder.TOP)
+        borderhide_left.isSelected = mBEditText.isHiddenBorderEdges(ShadowViewBuilder.LEFT)
+        borderhide_right.isSelected = mBEditText.isHiddenBorderEdges(ShadowViewBuilder.RIGHT)
+        borderhide_bottom.isSelected = mBEditText.isHiddenBorderEdges(ShadowViewBuilder.BOTTOM)
         skbar_border_color.setOnColorChangeListener(object : MyColorBar.OnStateChangeListener {
             override fun onProcessChanged(progress: Int, color: Int) {
                 mBEditText.borderColor = color
@@ -79,10 +78,10 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         shadowhide_right.setOnClickListener(this)
         shadowhide_bottom.setOnClickListener(this)
 
-        shadowhide_top.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.TOP)
-        shadowhide_left.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.LEFT)
-        shadowhide_right.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.RIGHT)
-        shadowhide_bottom.isSelected = mBEditText.isHiddenShadowEdges(ShadowBuilder.BOTTOM)
+        shadowhide_top.isSelected = mBEditText.isHiddenShadowEdges(ShadowViewBuilder.TOP)
+        shadowhide_left.isSelected = mBEditText.isHiddenShadowEdges(ShadowViewBuilder.LEFT)
+        shadowhide_right.isSelected = mBEditText.isHiddenShadowEdges(ShadowViewBuilder.RIGHT)
+        shadowhide_bottom.isSelected = mBEditText.isHiddenShadowEdges(ShadowViewBuilder.BOTTOM)
         skbar_shadow_size.max = AppUtils.dip2px(this, 20f)
         //初始化透明度
         skbar_alpha.max = 255
@@ -161,23 +160,23 @@ class BEditTextActivity : AppCompatActivity(), View.OnClickListener, OnSeekBarCh
         } else if (i == R.id.borderTitleLayout) {
             changeInfoVisible(borderTitleIv, borderInfoLayout)
         } else if (i == R.id.borderhide_left) {
-            hideBorderEdges(borderhide_left, ShadowBuilder.LEFT);
+            hideBorderEdges(borderhide_left, ShadowViewBuilder.LEFT);
         } else if (i == R.id.borderhide_top) {
-            hideBorderEdges(borderhide_top, ShadowBuilder.TOP);
+            hideBorderEdges(borderhide_top, ShadowViewBuilder.TOP);
         } else if (i == R.id.borderhide_right) {
-            hideBorderEdges(borderhide_right, ShadowBuilder.RIGHT);
+            hideBorderEdges(borderhide_right, ShadowViewBuilder.RIGHT);
         } else if (i == R.id.borderhide_bottom) {
-            hideBorderEdges(borderhide_bottom, ShadowBuilder.BOTTOM);
+            hideBorderEdges(borderhide_bottom, ShadowViewBuilder.BOTTOM);
         } else if (i == R.id.shadowTitleLayout) {
             changeInfoVisible(shadowTitleIv, shadowInfoLayout)
         } else if (i == R.id.shadowhide_left) {
-            hideShadowEdges(shadowhide_left, ShadowBuilder.LEFT);
+            hideShadowEdges(shadowhide_left, ShadowViewBuilder.LEFT);
         } else if (i == R.id.shadowhide_top) {
-            hideShadowEdges(shadowhide_top, ShadowBuilder.TOP);
+            hideShadowEdges(shadowhide_top, ShadowViewBuilder.TOP);
         } else if (i == R.id.shadowhide_right) {
-            hideShadowEdges(shadowhide_right, ShadowBuilder.RIGHT);
+            hideShadowEdges(shadowhide_right, ShadowViewBuilder.RIGHT);
         } else if (i == R.id.shadowhide_bottom) {
-            hideShadowEdges(shadowhide_bottom, ShadowBuilder.BOTTOM);
+            hideShadowEdges(shadowhide_bottom, ShadowViewBuilder.BOTTOM);
         } else if (i == R.id.gradientTitleLayout) {
             changeInfoVisible(gradientTitleIv, gradientInfoLayout)
         } else if (i == R.id.showGradient) {

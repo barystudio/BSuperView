@@ -4,29 +4,29 @@
 
     <!--自定义View 公用样式-->
     <!--阴影的圆角大小-->
-    <attr name="roundRadius" format="dimension" />
-    <attr name="topLeftRadius" format="dimension" />
-    <attr name="topRightRadius" format="dimension" />
-    <attr name="bottomLeftRadius" format="dimension" />
-    <attr name="bottomRightRadius" format="dimension" />
-    <attr name="backgroundColor" format="color" />
+    <attr name="bsv_roundRadius" format="dimension" />
+    <attr name="bsv_topLeftRadius" format="dimension" />
+    <attr name="bsv_topRightRadius" format="dimension" />
+    <attr name="bsv_bottomLeftRadius" format="dimension" />
+    <attr name="bsv_bottomRightRadius" format="dimension" />
+    <attr name="bsv_backgroundColor" format="color" />
     <!--下面是否显示阴影-->
     <!--阴影的扩散范围-->
-    <attr name="shadowSize" format="dimension" />
+    <attr name="bsv_shadowSize" format="dimension" />
     <!--横向阴影的扩散范围-->
-    <attr name="shadowXSize" format="dimension" />
+    <attr name="bsv_shadowXSize" format="dimension" />
     <!--纵向阴影的扩散范围-->
-    <attr name="shadowYSize" format="dimension" />
+    <attr name="bsv_shadowYSize" format="dimension" />
     <!--阴影颜色-->
-    <attr name="shadowColor" format="color" />
+    <attr name="bsv_shadowColor" format="color" />
     <!--阴影透明度-->
-    <attr name="shadowAlpha" format="float" />
+    <attr name="bsv_shadowAlpha" format="float" />
     <!--x轴的偏移量-->
-    <attr name="shadowDx" format="dimension" />
+    <attr name="bsv_shadowDx" format="dimension" />
     <!--y轴的偏移量-->
-    <attr name="shadowDy" format="dimension" />
+    <attr name="bsv_shadowDy" format="dimension" />
     <!--隐藏阴影某些边-->
-    <attr name="shadowHideEdges">
+    <attr name="bsv_shadowHideEdges">
         <flag name = "left" value = "1" />
         <flag name = "right" value = "2" />
         <flag name = "top" value = "4" />
@@ -34,11 +34,11 @@
     </attr>
 
     <!--描边的扩散范围-->
-    <attr name="borderSize" format="dimension" />
+    <attr name="bsv_borderSize" format="dimension" />
     <!--描边的颜色-->
-    <attr name="borderColor" format="color" />
+    <attr name="bsv_borderColor" format="color" />
     <!--隐藏描边某些边-->
-    <attr name="borderHideEdges">
+    <attr name="bsv_borderHideEdges">
         <flag name = "left" value = "1" />
         <flag name = "right" value = "2" />
         <flag name = "top" value = "4" />
@@ -46,82 +46,103 @@
     </attr>
 
     <!--文本渐变色颜色-->
-    <attr name="textGradientColor" format="string" />
+    <attr name="bsv_textGradientColor" format="string" />
     <!---文本渐变方向-->
-    <attr name="textGradientOrientation"  format="enum">
+    <attr name="bsv_textGradientOrientation"  format="enum">
         <enum name = "horizontal" value = "1" />
         <enum name = "vertical" value = "2" />
         <enum name = "diagonal" value = "4" />
     </attr>
     <!---文本渐变类型-->
-    <attr name="textGradientType" format="enum">
+    <attr name="bsv_textGradientType" format="enum">
         <enum name = "linear" value = "1" />
         <enum name = "radial" value = "2" />
         <enum name = "sweep" value = "4" />
     </attr>
     <!--背景渐变色颜色-->
-    <attr name="backgroundGradientColor" format="string" />
+    <attr name="bsv_backgroundGradientColor" format="string" />
     <!---背景渐变方向-->
-    <attr name="backgroundGradientOrientation"  format="enum">
+    <attr name="bsv_backgroundGradientOrientation"  format="enum">
         <enum name = "horizontal" value = "1" />
         <enum name = "vertical" value = "2" />
         <enum name = "diagonal" value = "4" />
     </attr>
     <!---背景渐变类型-->
-    <attr name="backgroundGradientType"  format="enum">
+    <attr name="bsv_backgroundGradientType"  format="enum">
         <enum name = "linear" value = "1" />
         <enum name = "radial" value = "2" />
         <enum name = "sweep" value = "4" />
     </attr>
 
     <declare-styleable name="BEditText">
-        <attr name="backgroundColor" />
-        <attr name="backgroundGradientColor" />
-        <attr name="backgroundGradientOrientation" />
-        <attr name="backgroundGradientType" />
-        <attr name="textGradientColor" />
-        <attr name="textGradientOrientation" />
-        <attr name="textGradientType" />
+        <attr name="bsv_backgroundColor" />
+        <attr name="bsv_backgroundGradientColor" />
+        <attr name="bsv_backgroundGradientOrientation" />
+        <attr name="bsv_backgroundGradientType" />
+        <attr name="bsv_textGradientColor" />
+        <attr name="bsv_textGradientOrientation" />
+        <attr name="bsv_textGradientType" />
 
-        <attr name="roundRadius" />
-        <attr name="topLeftRadius" />
-        <attr name="topRightRadius" />
-        <attr name="bottomLeftRadius" />
-        <attr name="bottomRightRadius" />
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
 
-        <attr name="shadowHideEdges" />
-        <attr name="shadowSize" />
-        <attr name="shadowXSize" />
-        <attr name="shadowYSize" />
-        <attr name="shadowColor" />
-        <attr name="shadowAlpha" />
-        <attr name="shadowDx" />
-        <attr name="shadowDy" />
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
 
-        <attr name="borderSize" />
-        <attr name="borderColor" />
-        <attr name="borderHideEdges" />
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
 
-        <attr name="editMode" format="enum">
+        <attr name="bsv_editMode" format="enum">
             <enum name = "normal" value = "1" />
             <enum name = "uneditable" value = "2" />
             <enum name = "nokeyboard" value = "4" />
         </attr>
 
-        <attr name="showClearIcon" format="boolean" />
-        <attr name="clearIcon" format="reference" />
-        <attr name="showSecretIcon" format="boolean" />
-        <attr name="secretIconVisible" format="reference" />
-        <attr name="secretIcoInvisible" format="reference" />
-        <attr name="leftIcon" format="reference" />
-        <attr name="leftIconWidth" format="dimension" />
-        <attr name="leftIconHeight" format="dimension" />
-        <attr name="leftIconPadding" format="dimension" />
-        <attr name="rightIcon" format="reference" />
-        <attr name="rightIconWidth" format="dimension" />
-        <attr name="rightIconHeight" format="dimension" />
-        <attr name="rightIconPadding" format="dimension" />
+        <attr name="bsv_showClearIcon" format="boolean" />
+        <attr name="bsv_clearIcon" format="reference" />
+        <attr name="bsv_showSecretIcon" format="boolean" />
+        <attr name="bsv_secretIconVisible" format="reference" />
+        <attr name="bsv_secretIcoInvisible" format="reference" />
+        <attr name="bsv_leftIcon" format="reference" />
+        <attr name="bsv_leftIconWidth" format="dimension" />
+        <attr name="bsv_leftIconHeight" format="dimension" />
+        <attr name="bsv_leftIconPadding" format="dimension" />
+        <attr name="bsv_rightIcon" format="reference" />
+        <attr name="bsv_rightIconWidth" format="dimension" />
+        <attr name="bsv_rightIconHeight" format="dimension" />
+        <attr name="bsv_rightIconPadding" format="dimension" />
 
+    </declare-styleable>
+
+    <declare-styleable name="BLinearLayout">
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
     </declare-styleable>
 
 </resources>

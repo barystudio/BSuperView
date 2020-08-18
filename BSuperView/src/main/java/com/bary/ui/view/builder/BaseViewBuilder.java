@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
 import android.graphics.RadialGradient;
 import android.graphics.RectF;
@@ -13,10 +14,9 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
-import com.bary.ui.view.interf.ISuperInterface;
+import com.bary.ui.view.interf.ISuperViewInterface;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -25,16 +25,16 @@ import java.util.Map;
  * author Bary
  * date on 2020/1/21.
  */
-public abstract class BaseBuilder {
+public abstract class BaseViewBuilder {
     public View mView;
     public String mLastBackGroundFlag = "";
-    public ISuperInterface mSuper;
+    public ISuperViewInterface mSuper;
     private Paint mShadowPaint;
     private Paint mGradientPaint;
     private Paint mBorderPaint;
 
 
-    public BaseBuilder(View view, ISuperInterface iSuper) {
+    public BaseViewBuilder(View view, ISuperViewInterface iSuper) {
         mView = view;
         mSuper = iSuper;
         //阴影画笔
@@ -100,23 +100,23 @@ public abstract class BaseBuilder {
      */
     private void setHiddenEdges() {
         Map<Integer, Boolean> edges = mSuper.getShadowStyle().getHiddenEdges();
-        if (edges.get(ShadowBuilder.LEFT) && edges.get(ShadowBuilder.RIGHT)) {
+        if (edges.get(ShadowViewBuilder.LEFT) && edges.get(ShadowViewBuilder.RIGHT)) {
             mShadowXSize = 0;
             mShadowDx = 0;
-        } else if (edges.get(ShadowBuilder.LEFT) && !edges.get(ShadowBuilder.RIGHT)) {
+        } else if (edges.get(ShadowViewBuilder.LEFT) && !edges.get(ShadowViewBuilder.RIGHT)) {
             mShadowXSize = mShadowXSize / 2;
             mShadowDx = mShadowXSize;
-        } else if (!edges.get(ShadowBuilder.LEFT) && edges.get(ShadowBuilder.RIGHT)) {
+        } else if (!edges.get(ShadowViewBuilder.LEFT) && edges.get(ShadowViewBuilder.RIGHT)) {
             mShadowXSize = mShadowXSize / 2;
             mShadowDx = -mShadowXSize;
         }
-        if (edges.get(ShadowBuilder.TOP) && edges.get(ShadowBuilder.BOTTOM)) {
+        if (edges.get(ShadowViewBuilder.TOP) && edges.get(ShadowViewBuilder.BOTTOM)) {
             mShadowYSize = 0;
             mShadowDy = 0;
-        } else if (edges.get(ShadowBuilder.TOP) && !edges.get(ShadowBuilder.BOTTOM)) {
+        } else if (edges.get(ShadowViewBuilder.TOP) && !edges.get(ShadowViewBuilder.BOTTOM)) {
             mShadowYSize = mShadowYSize / 2;
             mShadowDy = mShadowYSize;
-        } else if (!edges.get(ShadowBuilder.TOP) && edges.get(ShadowBuilder.BOTTOM)) {
+        } else if (!edges.get(ShadowViewBuilder.TOP) && edges.get(ShadowViewBuilder.BOTTOM)) {
             mShadowYSize = mShadowYSize / 2;
             mShadowDy = -mShadowYSize;
         }
@@ -154,10 +154,10 @@ public abstract class BaseBuilder {
         }
 
         Bitmap bitmap = getShadowBitmap(mView.getWidth(), mView.getHeight(),
-                mSuper.getBasicStyle().getTopLeftRoundRadius(),
-                mSuper.getBasicStyle().getTopRightRoundRadius(),
-                mSuper.getBasicStyle().getBottomLeftRoundRadius(),
-                mSuper.getBasicStyle().getBottomRightRoundRadius(),
+                mSuper.getRoundStyle().getTopLeftRoundRadius(),
+                mSuper.getRoundStyle().getTopRightRoundRadius(),
+                mSuper.getRoundStyle().getBottomLeftRoundRadius(),
+                mSuper.getRoundStyle().getBottomRightRoundRadius(),
                 mShadowXSize,
                 mShadowYSize,
                 mShadowDx,
@@ -207,17 +207,17 @@ public abstract class BaseBuilder {
 
         mLastBackGroundFlag = buffer.toString();
         //优化阴影bitmap大小,将尺寸缩小至原来的1/4。
-        dx = dx / 4;
-        dy = dy / 4;
-        shadowWidth = (int) (shadowWidth / 4f);
-        shadowHeight = (int) (shadowHeight / 4f);
-        topLeftRadius = topLeftRadius / 4;
-        topRightRadius = topRightRadius / 4;
-        bottomLeftRadius = bottomLeftRadius / 4;
-        bottomRightRadius = bottomRightRadius / 4;
-        shadowXSize = shadowXSize / 4;
-        shadowYSize = shadowYSize / 4;
-        borderSize = borderSize / 4;
+//        dx = dx / 4;
+//        dy = dy / 4;
+//        shadowWidth = (int) (shadowWidth / 4f);
+//        shadowHeight = (int) (shadowHeight / 4f);
+//        topLeftRadius = topLeftRadius / 4;
+//        topRightRadius = topRightRadius / 4;
+//        bottomLeftRadius = bottomLeftRadius / 4;
+//        bottomRightRadius = bottomRightRadius / 4;
+//        shadowXSize = shadowXSize / 4;
+//        shadowYSize = shadowYSize / 4;
+//        borderSize = borderSize / 4;
 
         if (Math.abs(dy) > shadowYSize) {
             dy = dy < 0 ? -shadowYSize : shadowYSize;
@@ -347,17 +347,17 @@ public abstract class BaseBuilder {
         int bl = defColor;
         int l = defColor;
         Map<Integer, Boolean> edges = mSuper.getBorderStyle().getHiddenEdges();
-        if (edges.get(BorderBuilder.LEFT)) {
+        if (edges.get(BorderViewBuilder.LEFT)) {
             tl = l = bl = Color.TRANSPARENT;
         }
-        if (edges.get(BorderBuilder.RIGHT)) {
+        if (edges.get(BorderViewBuilder.RIGHT)) {
             tr = r = br = Color.TRANSPARENT;
         }
 
-        if (edges.get(BorderBuilder.TOP)) {
+        if (edges.get(BorderViewBuilder.TOP)) {
             tl = t = tr = Color.TRANSPARENT;
         }
-        if (edges.get(BorderBuilder.BOTTOM)) {
+        if (edges.get(BorderViewBuilder.BOTTOM)) {
             bl = b = br = Color.TRANSPARENT;
         }
 
