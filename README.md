@@ -1,9 +1,13 @@
+<br>
+<br>
 
 ###  最新版本 1.0.5
 
 
-## 一、内容介绍
-#### 1、【UI篇】BEditText文本输入框 —— [详细说明](https://github.com/barystudio/BSuperView/tree/master/document/BEditText.md)
+## 一、功能介绍
+<br>
+
+#### 1、【UI篇】BEditText文本输入框 —— [详细说明](https://www.jianshu.com/p/ad0eb5f43cc0)
 
 |  功能   | 描述  |
 |  ----  | ----  |
@@ -14,8 +18,9 @@
 | 辅助功能  | 支持一键清空<br>支持内容可见性切换&自定义图标<br>支持设置四周图标&自定义宽高<br>支持输入法控制|
 | 另类样式  | 支付密码输入样式、验证码输入样式等|
 
+<br>
 
-#### 2、【UI篇】BXXXLayout各种Layout容器 —— [详细说明](https://github.com/barystudio/BSuperView/tree/master/document/BXXXLayout.md)
+#### 2、【UI篇】BXXXLayout各种Layout容器 —— [详细说明](https://www.jianshu.com/p/4ab558fd3855)
 目前支持：BLinearLayout、BFrameLayout、BRelativeLayout（拓展中...）
 
 |  功能   | 描述  |
