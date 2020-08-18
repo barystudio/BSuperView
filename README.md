@@ -1,11 +1,12 @@
 <br>
-<br>
+
 
 ###  最新版本 1.0.5
 
+<br>
 
 ## 一、功能介绍
-<br>
+
 
 #### 1、【UI篇】BEditText文本输入框 —— [详细说明](https://www.jianshu.com/p/ad0eb5f43cc0)
 
