@@ -51,7 +51,7 @@
 
   dependencies {
         ...
-        implementation 'com.github.barystudio:BSuperView:1.0.4'
+        implementation 'com.github.barystudio:BSuperView:最新版本'
   }
 
 ```
