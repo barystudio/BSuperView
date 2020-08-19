@@ -1,11 +1,16 @@
 package com.bary.ui.layout;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.bary.ui.R;
 import com.bary.ui.common.bean.Padding;
@@ -114,16 +119,6 @@ public class BLinearLayout extends LinearLayout implements IRoundInterface, ISha
     @Override
     public void setBottomRightRoundRadius(float radius) {
         mRoundBuilder.setBottomRightRoundRadius(radius);
-    }
-
-    @Override
-    public void setBackgroundColor(int color) {
-        mShadowBuilder.setBackgroundColor(color);
-    }
-
-    @Override
-    public int getBackgroundColor() {
-        return mShadowBuilder.getBackgroundColor();
     }
 
     @Override
@@ -255,6 +250,16 @@ public class BLinearLayout extends LinearLayout implements IRoundInterface, ISha
     @Override
     public boolean isHiddenBorderEdges(int edges) {
         return mBorderBuilder.isHiddenBorderEdges(edges);
+    }
+
+    @Override
+    public void setBackgroundResource(int resid) {
+        mShadowBuilder.setBackground(ContextCompat.getDrawable(getContext(),resid));
+    }
+
+    @Override
+    public void setBackground(Drawable background) {
+        mShadowBuilder.setBackground(background);
     }
 
     @Override

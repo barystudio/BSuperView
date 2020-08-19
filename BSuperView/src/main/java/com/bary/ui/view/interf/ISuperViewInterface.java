@@ -1,6 +1,8 @@
 package com.bary.ui.view.interf;
 
 
+import android.graphics.drawable.Drawable;
+
 import com.bary.ui.common.bean.Padding;
 import com.bary.ui.view.builder.BorderViewBuilder;
 import com.bary.ui.view.builder.GradientViewBuilder;
@@ -17,5 +19,6 @@ public interface ISuperViewInterface {
     BorderViewBuilder getBorderStyle();
     GradientViewBuilder getGradientStyle();
     void updatePadding(int left, int top, int right, int bottom);
+    void updateBackground(Drawable drawable);
     Padding getDefPadding();
 }

@@ -2,6 +2,7 @@ package com.bary.ui.view.builder;
 
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import com.bary.ui.R;
@@ -23,12 +24,11 @@ public class ShadowViewBuilder extends BaseViewBuilder implements IShadowInterfa
     private Map<Integer,Boolean> hiddenEdges = new HashMap<>();
 
     private int mShadowColor;
-    private int mBackGroundColor;
     private int mShadowHideEdges;
     private float mShadowSize,mShadowXSize,mShadowYSize,mShadowAlpha;
     private float mShadowDx, mShadowDy;
     private boolean isShowShadow = false;
-
+    private Drawable mBackGroundDrawable;
     public ShadowViewBuilder(View view, ISuperViewInterface parentInterface) {
         super(view, parentInterface);
     }
@@ -58,8 +58,8 @@ public class ShadowViewBuilder extends BaseViewBuilder implements IShadowInterfa
         mShadowColor = attr.getColor(getStyleableId("bsv_shadowColor"), mView.getResources().getColor(R.color.bsv_black));
         //阴影透明度
         mShadowAlpha = attr.getFloat(getStyleableId("bsv_shadowAlpha"), 1);
-        //背景填充色
-        mBackGroundColor = attr.getColor(getStyleableId("bsv_backgroundColor"), Color.TRANSPARENT);
+        //背景图
+        mBackGroundDrawable = attr.getDrawable(getStyleableId("android:background"));
 
         if(mShadowSize>0){
             mShadowXSize = mShadowSize;
@@ -219,17 +219,6 @@ public class ShadowViewBuilder extends BaseViewBuilder implements IShadowInterfa
     }
 
     @Override
-    public void setBackgroundColor(int color) {
-        mBackGroundColor = color;
-    }
-
-    @Override
-    public int getBackgroundColor() {
-        return mBackGroundColor;
-    }
-
-
-    @Override
     public boolean isShadowShow() {
         return isShowShadow;
     }
@@ -310,5 +299,11 @@ public class ShadowViewBuilder extends BaseViewBuilder implements IShadowInterfa
                break;
        }
     }
+    public void setBackground(Drawable drawable) {
+        mBackGroundDrawable = drawable;
+    }
 
+    public Drawable getBackground() {
+        return mBackGroundDrawable;
+    }
 }

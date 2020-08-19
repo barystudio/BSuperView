@@ -8,8 +8,6 @@ import androidx.annotation.ColorInt;
  * create at 2020/8/4 10:06
  */
 public interface IShadowInterface {
-    void setBackgroundColor(@ColorInt int color);
-    int getBackgroundColor();
     void setShadowDx(float dx);
     float getShadowDx();
     void setShadowDy(float dy);

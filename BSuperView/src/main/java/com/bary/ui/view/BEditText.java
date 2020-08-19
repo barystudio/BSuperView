@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
 
 import com.bary.ui.R;
 import com.bary.ui.common.bean.Padding;
@@ -134,16 +136,6 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
     @Override
     public void setBottomRightRoundRadius(float radius) {
         mRoundBuilder.setBottomRightRoundRadius(radius);
-    }
-
-    @Override
-    public void setBackgroundColor(int color) {
-        mShadowBuilder.setBackgroundColor(color);
-    }
-
-    @Override
-    public int getBackgroundColor() {
-        return mShadowBuilder.getBackgroundColor();
     }
 
     @Override
@@ -409,6 +401,17 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
     }
 
     @Override
+    public void setBackgroundResource(int resid) {
+        mShadowBuilder.setBackground(ContextCompat.getDrawable(getContext(),resid));
+    }
+
+    @Override
+    public void setBackground(Drawable background) {
+        if(mShadowBuilder==null)return;
+        mShadowBuilder.setBackground(background);
+    }
+
+    @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mShadowBuilder.updateUI();
@@ -446,6 +449,15 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
     @Override
     public void updatePadding(int left, int top, int right, int bottom) {
         super.setPadding(left, top, right, bottom);
+    }
+
+    @Override
+    public void updateBackground(Drawable drawable) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
+            super.setBackgroundDrawable(drawable);
+        } else {
+            super.setBackground(drawable);
+        }
     }
 
     @Override

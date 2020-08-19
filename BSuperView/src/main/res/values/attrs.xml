@@ -75,7 +75,7 @@
     </attr>
 
     <declare-styleable name="BEditText">
-        <attr name="bsv_backgroundColor" />
+        <attr name="android:background" />
         <attr name="bsv_backgroundGradientColor" />
         <attr name="bsv_backgroundGradientOrientation" />
         <attr name="bsv_backgroundGradientType" />
@@ -125,6 +125,8 @@
     </declare-styleable>
 
     <declare-styleable name="BLinearLayout">
+        <attr name="android:background" />
+
         <attr name="bsv_roundRadius" />
         <attr name="bsv_topLeftRadius" />
         <attr name="bsv_topRightRadius" />

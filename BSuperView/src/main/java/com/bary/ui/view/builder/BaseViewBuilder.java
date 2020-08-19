@@ -5,14 +5,21 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RadialGradient;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.SweepGradient;
+import android.graphics.Xfermode;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 
@@ -32,6 +39,7 @@ public abstract class BaseViewBuilder {
     private Paint mShadowPaint;
     private Paint mGradientPaint;
     private Paint mBorderPaint;
+    private Paint mBackGroundPaint;
 
 
     public BaseViewBuilder(View view, ISuperViewInterface iSuper) {
@@ -49,6 +57,10 @@ public abstract class BaseViewBuilder {
         mBorderPaint = new Paint();
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setStyle(Paint.Style.STROKE);
+        //背景画笔
+        mBackGroundPaint = new Paint();
+        mBackGroundPaint.setAntiAlias(true);
+        mBackGroundPaint.setStyle(Paint.Style.FILL);
     }
 
     abstract void initAttributes(TypedArray attr);
@@ -137,20 +149,20 @@ public abstract class BaseViewBuilder {
         setHiddenEdges();
         setPading();
 
-        int[] mBgColors = new int[Math.max(mSuper.getGradientStyle().getBackgroundGradientColor().size(),2)];
-        if(mSuper.getGradientStyle().getBackgroundGradientColor().size()>0){
-            if(mSuper.getGradientStyle().getBackgroundGradientColor().size()>1){
-                for (int i = 0; i <mSuper.getGradientStyle().getBackgroundGradientColor().size() ; i++) {
+        int[] mBgColors = new int[Math.max(mSuper.getGradientStyle().getBackgroundGradientColor().size(), 2)];
+        if (mSuper.getGradientStyle().getBackgroundGradientColor().size() > 0) {
+            if (mSuper.getGradientStyle().getBackgroundGradientColor().size() > 1) {
+                for (int i = 0; i < mSuper.getGradientStyle().getBackgroundGradientColor().size(); i++) {
                     mBgColors[i] = Color.parseColor(mSuper.getGradientStyle().getBackgroundGradientColor().get(i));
                 }
-            }else{
+            } else {
                 mBgColors[0] = Color.parseColor(mSuper.getGradientStyle().getBackgroundGradientColor().get(0));
                 mBgColors[1] = Color.parseColor(mSuper.getGradientStyle().getBackgroundGradientColor().get(0));
             }
 
-        }else{
-            mBgColors[0] = mSuper.getShadowStyle().getBackgroundColor();
-            mBgColors[1] = mSuper.getShadowStyle().getBackgroundColor();
+        } else {
+            mBgColors[0] = Color.TRANSPARENT;
+            mBgColors[1] = Color.TRANSPARENT;
         }
 
         Bitmap bitmap = getShadowBitmap(mView.getWidth(), mView.getHeight(),
@@ -168,13 +180,9 @@ public abstract class BaseViewBuilder {
                 mSuper.getBorderStyle().getBorderSize(),
                 mSuper.getBorderStyle().getBorderColor()
         );
-        if(bitmap==null)return;
+        if (bitmap == null) return;
         BitmapDrawable drawable = new BitmapDrawable(bitmap);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
-            mView.setBackgroundDrawable(drawable);
-        } else {
-            mView.setBackground(drawable);
-        }
+        mSuper.updateBackground(drawable);
     }
 
     /**
@@ -203,7 +211,7 @@ public abstract class BaseViewBuilder {
         buffer.append(shadowWidth).append("-").append(shadowHeight).append("-").append(topLeftRadius).append("-").append(topRightRadius).append("-").append(bottomLeftRadius).append("-")
                 .append(bottomRightRadius).append("-").append(shadowXSize).append("-").append(shadowYSize).append("-").append(dx).append("-").append(dy).append("-").append(shadowColor).append("-")
                 .append(shadowAlpha).append("-").append(fillColor).append("-").append(borderSize).append("-").append(borderColor);
-        if(mLastBackGroundFlag.equals(buffer.toString())) return null;
+        if (mLastBackGroundFlag.equals(buffer.toString())) return null;
 
         mLastBackGroundFlag = buffer.toString();
         //优化阴影bitmap大小,将尺寸缩小至原来的1/4。
@@ -246,11 +254,11 @@ public abstract class BaseViewBuilder {
         Canvas canvas = new Canvas(output);
         drawCancas(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, mShadowPaint);
         Shader mBgShader = null;
-        switch (mSuper.getGradientStyle().getBackgroundGradientType()){
+        switch (mSuper.getGradientStyle().getBackgroundGradientType()) {
             case LINEAR:
                 float targetX = rectf.right;
                 float targetY = rectf.bottom;
-                switch (mSuper.getGradientStyle().getBackgroundGradientOrientation()){
+                switch (mSuper.getGradientStyle().getBackgroundGradientOrientation()) {
                     case HORIZONTAL:
                         targetY = rectf.top;
                         break;
@@ -261,18 +269,20 @@ public abstract class BaseViewBuilder {
                         //默认值
                         break;
                 }
-                mBgShader = new LinearGradient(rectf.left, rectf.top, targetX, targetY,fillColor, null, Shader.TileMode.REPEAT);
+                mBgShader = new LinearGradient(rectf.left, rectf.top, targetX, targetY, fillColor, null, Shader.TileMode.REPEAT);
                 break;
             case RADIAL:
-                mBgShader = new RadialGradient(rectf.centerX(), rectf.centerY(),Math.max(rectf.width(), rectf.height())/2,fillColor, null,Shader.TileMode.REPEAT);
+                mBgShader = new RadialGradient(rectf.centerX(), rectf.centerY(), Math.max(rectf.width(), rectf.height()) / 2, fillColor, null, Shader.TileMode.REPEAT);
                 break;
             case SWEEP:
-                mBgShader = new SweepGradient(rectf.centerX(), rectf.centerY(),fillColor,null);
+                mBgShader = new SweepGradient(rectf.centerX(), rectf.centerY(), fillColor, null);
                 break;
         }
 
         mGradientPaint.setShader(mBgShader);
         drawCancas(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, mGradientPaint);
+        drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, mSuper.getShadowStyle().getBackground(), mBackGroundPaint);
+
         final float sHeight = rectf.bottom - rectf.top;
         rectf.left += borderSize / 2f;
         rectf.top += borderSize / 2f;
@@ -281,7 +291,7 @@ public abstract class BaseViewBuilder {
         mBorderPaint.setStrokeWidth(borderSize);
         mBorderPaint.setColor(borderColor);
         final float bHeight = rectf.bottom - rectf.top - borderSize;
-        drawBorder(canvas, rectf, topLeftRadius * (bHeight / sHeight), topRightRadius * (bHeight / sHeight), bottomLeftRadius * (bHeight / sHeight), bottomRightRadius * (bHeight / sHeight),borderSize, mBorderPaint);
+        drawBorder(canvas, rectf, topLeftRadius * (bHeight / sHeight), topRightRadius * (bHeight / sHeight), bottomLeftRadius * (bHeight / sHeight), bottomRightRadius * (bHeight / sHeight), borderSize, mBorderPaint);
         return output;
     }
 
@@ -318,7 +328,7 @@ public abstract class BaseViewBuilder {
         canvas.drawPath(path, roundPaint);
     }
 
-    private void drawBorder(Canvas canvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius,float borderSize, Paint roundPaint) {
+    private void drawBorder(Canvas canvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, float borderSize, Paint roundPaint) {
 
         float height = rectf.bottom - rectf.top;
         float width = rectf.right - rectf.left;
@@ -363,63 +373,154 @@ public abstract class BaseViewBuilder {
 
         float fault = 0.5f;
 
-        float lineTopLeft = rectf.left + topLeftRadius-fault;
-        float lineLeftTop = rectf.top + topLeftRadius-fault;
-        if(topLeftRadius <=0){
-            lineTopLeft = rectf.left-borderSize/2;
-            lineLeftTop = rectf.top-borderSize/2;
+        float lineTopLeft = rectf.left + topLeftRadius - fault;
+        float lineLeftTop = rectf.top + topLeftRadius - fault;
+        if (topLeftRadius <= 0) {
+            lineTopLeft = rectf.left - borderSize / 2;
+            lineLeftTop = rectf.top - borderSize / 2;
         }
-        float lineTopRight = rectf.right - topRightRadius+fault;
-        float lineRightTop = rectf.top+topRightRadius-1;
-        if(topRightRadius <=0){
-            lineTopRight = rectf.right+borderSize/2;
-            lineRightTop = rectf.top-borderSize/2;
+        float lineTopRight = rectf.right - topRightRadius + fault;
+        float lineRightTop = rectf.top + topRightRadius - 1;
+        if (topRightRadius <= 0) {
+            lineTopRight = rectf.right + borderSize / 2;
+            lineRightTop = rectf.top - borderSize / 2;
         }
-        float lineBottomRight = rectf.right-bottomRightRadius+fault;
-        float lineRightBottom = rectf.bottom - bottomRightRadius+fault;
-        if(bottomRightRadius <=0){
-            lineBottomRight = rectf.right+borderSize/2;
-            lineRightBottom = rectf.bottom+borderSize/2;
+        float lineBottomRight = rectf.right - bottomRightRadius + fault;
+        float lineRightBottom = rectf.bottom - bottomRightRadius + fault;
+        if (bottomRightRadius <= 0) {
+            lineBottomRight = rectf.right + borderSize / 2;
+            lineRightBottom = rectf.bottom + borderSize / 2;
         }
 
-        float lineBottomLeft = rectf.left + bottomLeftRadius-fault;
-        float lineLeftBottom = rectf.bottom-bottomLeftRadius+fault;
-        if(bottomLeftRadius <=0){
-            lineBottomLeft = rectf.left-borderSize/2;
-            lineLeftBottom = rectf.bottom+borderSize/2;
+        float lineBottomLeft = rectf.left + bottomLeftRadius - fault;
+        float lineLeftBottom = rectf.bottom - bottomLeftRadius + fault;
+        if (bottomLeftRadius <= 0) {
+            lineBottomLeft = rectf.left - borderSize / 2;
+            lineLeftBottom = rectf.bottom + borderSize / 2;
         }
 
         //上
         roundPaint.setColor(t);
-        canvas.drawLine(lineTopLeft, rectf.top,lineTopRight, rectf.top,roundPaint);
+        canvas.drawLine(lineTopLeft, rectf.top, lineTopRight, rectf.top, roundPaint);
 
         //右上
         roundPaint.setColor(tr);
-        canvas.drawArc(new RectF(rectf.right - topRightRadius * 2, rectf.top, rectf.right, rectf.top + topRightRadius * 2), 270, 90,false,roundPaint);
+        canvas.drawArc(new RectF(rectf.right - topRightRadius * 2, rectf.top, rectf.right, rectf.top + topRightRadius * 2), 270, 90, false, roundPaint);
 
         //右
         roundPaint.setColor(r);
-        canvas.drawLine(rectf.right, lineRightTop,rectf.right, lineRightBottom,roundPaint);
+        canvas.drawLine(rectf.right, lineRightTop, rectf.right, lineRightBottom, roundPaint);
 
         //右下
         roundPaint.setColor(br);
-        canvas.drawArc(new RectF(rectf.right - bottomRightRadius * 2, rectf.bottom - bottomRightRadius * 2, rectf.right, rectf.bottom), 0, 90,false,roundPaint);
+        canvas.drawArc(new RectF(rectf.right - bottomRightRadius * 2, rectf.bottom - bottomRightRadius * 2, rectf.right, rectf.bottom), 0, 90, false, roundPaint);
 
         //下
         roundPaint.setColor(b);
-        canvas.drawLine(lineBottomRight, rectf.bottom, lineBottomLeft, rectf.bottom,roundPaint);
+        canvas.drawLine(lineBottomRight, rectf.bottom, lineBottomLeft, rectf.bottom, roundPaint);
         //左下
         roundPaint.setColor(bl);
-        canvas.drawArc(new RectF(rectf.left, rectf.bottom - bottomLeftRadius * 2, rectf.left + bottomLeftRadius * 2, rectf.bottom), 90, 90,false,roundPaint);
+        canvas.drawArc(new RectF(rectf.left, rectf.bottom - bottomLeftRadius * 2, rectf.left + bottomLeftRadius * 2, rectf.bottom), 90, 90, false, roundPaint);
 
         //左
         roundPaint.setColor(l);
-        canvas.drawLine(rectf.left, lineLeftBottom, rectf.left, lineLeftTop,roundPaint);
+        canvas.drawLine(rectf.left, lineLeftBottom, rectf.left, lineLeftTop, roundPaint);
         //左上
         roundPaint.setColor(tl);
-        canvas.drawArc(new RectF(rectf.left, rectf.top, rectf.left + topLeftRadius * 2, rectf.top + topLeftRadius * 2), 180, 90,false,roundPaint);
+        canvas.drawArc(new RectF(rectf.left, rectf.top, rectf.left + topLeftRadius * 2, rectf.top + topLeftRadius * 2), 180, 90, false, roundPaint);
 
     }
 
+    private void drawBackGround(Canvas parentCanvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, Drawable background, Paint paint) {
+
+        float height =rectf.bottom - rectf.top;
+        float width = rectf.right - rectf.left;
+        float standard = width;
+        if (width > height) {
+            standard = height;
+        }
+        float mTopLeftRadius = topLeftRadius;
+        float mBottomLeftRadius = bottomLeftRadius;
+        float mTopRightRadius = topRightRadius ;
+        float mBottomRightRadius = bottomRightRadius;
+
+        if (mTopLeftRadius + mBottomLeftRadius > standard) {
+            float ratio = standard / (mTopLeftRadius + mBottomLeftRadius);
+            mTopLeftRadius = mTopLeftRadius * ratio;
+            mBottomLeftRadius = mBottomLeftRadius * ratio;
+        }
+        if (mTopRightRadius + mBottomRightRadius > standard) {
+            float ratio = standard / (mTopRightRadius + mBottomRightRadius);
+            mTopRightRadius = mTopRightRadius * ratio;
+            mBottomRightRadius = mBottomRightRadius * ratio;
+        }
+        Bitmap bitmap = DrawableToBitmap(background);
+
+        int bmpWidth = bitmap.getWidth();
+        int bmpHeight = bitmap.getHeight();
+
+        Bitmap output = Bitmap.createBitmap((int)width, (int)height, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(output);
+        canvas.drawBitmap(bitmap,new Rect(0,0,bmpWidth,bmpHeight),new Rect(0,0,(int)width, (int)height),paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        if (mTopLeftRadius > 0) {
+            Path path = new Path();
+            path.moveTo(0, mTopLeftRadius);
+            path.lineTo(0, 0);
+            path.lineTo(mTopLeftRadius, 0);
+            path.arcTo(new RectF(0, 0, mTopLeftRadius * 2, mTopLeftRadius * 2), -90, -90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mTopRightRadius > 0) {
+            Path path = new Path();
+            path.moveTo(width - mTopRightRadius, 0);
+            path.lineTo(width, 0);
+            path.lineTo(width, mTopRightRadius);
+            path.arcTo(new RectF(width - 2 * mTopRightRadius, 0, width, mTopRightRadius * 2), 0, -90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mBottomLeftRadius > 0) {
+            Path path = new Path();
+            path.moveTo(0, height - mBottomLeftRadius);
+            path.lineTo(0, height);
+            path.lineTo(mBottomLeftRadius, height);
+            path.arcTo(new RectF(0, height - 2 * mBottomLeftRadius, mBottomLeftRadius * 2, height), 90, 90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mBottomRightRadius > 0) {
+            Path path = new Path();
+            path.moveTo(width - mBottomRightRadius, height);
+            path.lineTo(width, height);
+            path.lineTo(width, height - mBottomRightRadius);
+            path.arcTo(new RectF(width - 2 * mBottomRightRadius, height - 2 * mBottomRightRadius, width, height), 0, 90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
+        parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+    }
+    public static Bitmap DrawableToBitmap(Drawable drawable) {
+
+        // 获取 drawable 长宽
+        int width = drawable.getIntrinsicWidth()<=0?100:drawable.getIntrinsicWidth();
+        int heigh = drawable.getIntrinsicHeight()<=0?100:drawable.getIntrinsicHeight();
+
+        drawable.setBounds(0, 0, width, heigh);
+
+        // 获取drawable的颜色格式
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565;
+        // 创建bitmap
+        Bitmap bitmap = Bitmap.createBitmap(width, heigh, config);
+        // 创建bitmap画布
+        Canvas canvas = new Canvas(bitmap);
+        // 将drawable 内容画到画布中
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
 }
