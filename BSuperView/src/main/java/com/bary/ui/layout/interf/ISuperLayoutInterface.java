@@ -1,6 +1,8 @@
 package com.bary.ui.layout.interf;
 
 
+import android.graphics.drawable.Drawable;
+
 import com.bary.ui.common.bean.Padding;
 import com.bary.ui.layout.builder.BorderLayoutBuilder;
 import com.bary.ui.layout.builder.RoundLayoutBuilder;
@@ -15,6 +17,7 @@ public interface ISuperLayoutInterface {
     ShadowLayoutBuilder getShadowStyle();
     BorderLayoutBuilder getBorderStyle();
     void updatePadding(int left, int top, int right, int bottom);
+    void updateBackground(Drawable drawable);
     Padding getDefPadding();
 
 }

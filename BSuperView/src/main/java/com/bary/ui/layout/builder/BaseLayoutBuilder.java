@@ -7,8 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 
@@ -29,7 +34,7 @@ public abstract class BaseLayoutBuilder {
     public ISuperLayoutInterface mSuper;
     private Paint mShadowPaint;
     private Paint mBorderPaint;
-
+    private Paint mBackGroundPaint;
 
     public BaseLayoutBuilder(View view, ISuperLayoutInterface iSuper) {
         mView = view;
@@ -42,6 +47,10 @@ public abstract class BaseLayoutBuilder {
         mBorderPaint = new Paint();
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setStyle(Paint.Style.STROKE);
+        //背景画笔
+        mBackGroundPaint = new Paint();
+        mBackGroundPaint.setAntiAlias(true);
+        mBackGroundPaint.setStyle(Paint.Style.FILL);
     }
 
     abstract void initAttributes(TypedArray attr);
@@ -144,11 +153,7 @@ public abstract class BaseLayoutBuilder {
         );
         if(bitmap==null)return;
         BitmapDrawable drawable = new BitmapDrawable(bitmap);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
-            mView.setBackgroundDrawable(drawable);
-        } else {
-            mView.setBackground(drawable);
-        }
+        mSuper.updateBackground(drawable);
     }
 
     /**
@@ -230,6 +235,7 @@ public abstract class BaseLayoutBuilder {
         mShadowPaint.setShadowLayer(Math.max(shadowXSize, shadowYSize), dx, dy, shadowColor);
         Canvas canvas = new Canvas(output);
         drawCancas(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, mShadowPaint);
+        drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, mSuper.getShadowStyle().getBackground(), mBackGroundPaint);
         final float sHeight = rectf.bottom - rectf.top;
         rectf.left += borderSize / 2f;
         rectf.top += borderSize / 2f;
@@ -378,5 +384,95 @@ public abstract class BaseLayoutBuilder {
 
     }
 
+    private void drawBackGround(Canvas parentCanvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, Drawable background, Paint paint) {
 
+        float height =rectf.bottom - rectf.top;
+        float width = rectf.right - rectf.left;
+        float standard = width;
+        if (width > height) {
+            standard = height;
+        }
+        float mTopLeftRadius = topLeftRadius;
+        float mBottomLeftRadius = bottomLeftRadius;
+        float mTopRightRadius = topRightRadius ;
+        float mBottomRightRadius = bottomRightRadius;
+
+        if (mTopLeftRadius + mBottomLeftRadius > standard) {
+            float ratio = standard / (mTopLeftRadius + mBottomLeftRadius);
+            mTopLeftRadius = mTopLeftRadius * ratio;
+            mBottomLeftRadius = mBottomLeftRadius * ratio;
+        }
+        if (mTopRightRadius + mBottomRightRadius > standard) {
+            float ratio = standard / (mTopRightRadius + mBottomRightRadius);
+            mTopRightRadius = mTopRightRadius * ratio;
+            mBottomRightRadius = mBottomRightRadius * ratio;
+        }
+        Bitmap bitmap = DrawableToBitmap(background);
+
+        int bmpWidth = bitmap.getWidth();
+        int bmpHeight = bitmap.getHeight();
+
+        Bitmap output = Bitmap.createBitmap((int)width, (int)height, Bitmap.Config.ARGB_4444);
+        Canvas canvas = new Canvas(output);
+        canvas.drawBitmap(bitmap,new Rect(0,0,bmpWidth,bmpHeight),new Rect(0,0,(int)width, (int)height),paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
+        if (mTopLeftRadius > 0) {
+            Path path = new Path();
+            path.moveTo(0, mTopLeftRadius);
+            path.lineTo(0, 0);
+            path.lineTo(mTopLeftRadius, 0);
+            path.arcTo(new RectF(0, 0, mTopLeftRadius * 2, mTopLeftRadius * 2), -90, -90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mTopRightRadius > 0) {
+            Path path = new Path();
+            path.moveTo(width - mTopRightRadius, 0);
+            path.lineTo(width, 0);
+            path.lineTo(width, mTopRightRadius);
+            path.arcTo(new RectF(width - 2 * mTopRightRadius, 0, width, mTopRightRadius * 2), 0, -90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mBottomLeftRadius > 0) {
+            Path path = new Path();
+            path.moveTo(0, height - mBottomLeftRadius);
+            path.lineTo(0, height);
+            path.lineTo(mBottomLeftRadius, height);
+            path.arcTo(new RectF(0, height - 2 * mBottomLeftRadius, mBottomLeftRadius * 2, height), 90, 90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+        if (mBottomRightRadius > 0) {
+            Path path = new Path();
+            path.moveTo(width - mBottomRightRadius, height);
+            path.lineTo(width, height);
+            path.lineTo(width, height - mBottomRightRadius);
+            path.arcTo(new RectF(width - 2 * mBottomRightRadius, height - 2 * mBottomRightRadius, width, height), 0, 90);
+            path.close();
+            canvas.drawPath(path, paint);
+        }
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
+        parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+    }
+    public static Bitmap DrawableToBitmap(Drawable drawable) {
+
+        // 获取 drawable 长宽
+        int width = drawable.getIntrinsicWidth()<=0?100:drawable.getIntrinsicWidth();
+        int heigh = drawable.getIntrinsicHeight()<=0?100:drawable.getIntrinsicHeight();
+
+        drawable.setBounds(0, 0, width, heigh);
+
+        // 获取drawable的颜色格式
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565;
+        // 创建bitmap
+        Bitmap bitmap = Bitmap.createBitmap(width, heigh, config);
+        // 创建bitmap画布
+        Canvas canvas = new Canvas(bitmap);
+        // 将drawable 内容画到画布中
+        drawable.draw(canvas);
+        return bitmap;
+    }
 }

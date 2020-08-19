@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
@@ -259,6 +260,7 @@ public class BLinearLayout extends LinearLayout implements IRoundInterface, ISha
 
     @Override
     public void setBackground(Drawable background) {
+        if(mShadowBuilder==null)return;
         mShadowBuilder.setBackground(background);
     }
 
@@ -296,7 +298,14 @@ public class BLinearLayout extends LinearLayout implements IRoundInterface, ISha
     public void updatePadding(int left, int top, int right, int bottom) {
         super.setPadding(left, top, right, bottom);
     }
-
+    @Override
+    public void updateBackground(Drawable drawable) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.JELLY_BEAN) {
+            super.setBackgroundDrawable(drawable);
+        } else {
+            super.setBackground(drawable);
+        }
+    }
     @Override
     public Padding getDefPadding() {
         return new Padding(mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom);
