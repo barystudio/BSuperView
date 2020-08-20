@@ -56,8 +56,8 @@
             android:hint="请输入..."
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:background="@color/colorPrimary"
             android:textColorHint="@color/bsv_black"
+            android:background="@android:color/transparent"
            >
 
         </com.bary.ui.view.BEditText>

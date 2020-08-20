@@ -13,6 +13,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
@@ -235,7 +236,9 @@ public abstract class BaseLayoutBuilder {
         mShadowPaint.setShadowLayer(Math.max(shadowXSize, shadowYSize), dx, dy, shadowColor);
         Canvas canvas = new Canvas(output);
         drawCancas(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, mShadowPaint);
+        drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, null, mBackGroundPaint);
         drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, mSuper.getShadowStyle().getBackground(), mBackGroundPaint);
+
         final float sHeight = rectf.bottom - rectf.top;
         rectf.left += borderSize / 2f;
         rectf.top += borderSize / 2f;
@@ -407,7 +410,13 @@ public abstract class BaseLayoutBuilder {
             mTopRightRadius = mTopRightRadius * ratio;
             mBottomRightRadius = mBottomRightRadius * ratio;
         }
-        Bitmap bitmap = DrawableToBitmap(background);
+
+        Bitmap bitmap = null;
+        if(background==null){
+            bitmap = DrawableToBitmap(new ColorDrawable(Color.parseColor("#000000")));
+        }else{
+            bitmap = DrawableToBitmap(background);
+        }
 
         int bmpWidth = bitmap.getWidth();
         int bmpHeight = bitmap.getHeight();
@@ -452,9 +461,12 @@ public abstract class BaseLayoutBuilder {
             path.close();
             canvas.drawPath(path, paint);
         }
-
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+        if(background==null){
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.XOR));
+            parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+        }
     }
     public static Bitmap DrawableToBitmap(Drawable drawable) {
 

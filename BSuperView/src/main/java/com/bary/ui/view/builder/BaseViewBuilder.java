@@ -19,8 +19,10 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.graphics.Xfermode;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 
 import com.bary.ui.view.interf.ISuperViewInterface;
@@ -215,17 +217,17 @@ public abstract class BaseViewBuilder {
 
         mLastBackGroundFlag = buffer.toString();
         //优化阴影bitmap大小,将尺寸缩小至原来的1/4。
-//        dx = dx / 4;
-//        dy = dy / 4;
-//        shadowWidth = (int) (shadowWidth / 4f);
-//        shadowHeight = (int) (shadowHeight / 4f);
-//        topLeftRadius = topLeftRadius / 4;
-//        topRightRadius = topRightRadius / 4;
-//        bottomLeftRadius = bottomLeftRadius / 4;
-//        bottomRightRadius = bottomRightRadius / 4;
-//        shadowXSize = shadowXSize / 4;
-//        shadowYSize = shadowYSize / 4;
-//        borderSize = borderSize / 4;
+//        dx = dx / 2;
+//        dy = dy / 2;
+//        shadowWidth = (int) (shadowWidth / 2f);
+//        shadowHeight = (int) (shadowHeight / 2f);
+//        topLeftRadius = topLeftRadius / 2;
+//        topRightRadius = topRightRadius / 2;
+//        bottomLeftRadius = bottomLeftRadius / 2;
+//        bottomRightRadius = bottomRightRadius / 2;
+//        shadowXSize = shadowXSize / 2;
+//        shadowYSize = shadowYSize / 2;
+//        borderSize = borderSize / 2;
 
         if (Math.abs(dy) > shadowYSize) {
             dy = dy < 0 ? -shadowYSize : shadowYSize;
@@ -281,7 +283,10 @@ public abstract class BaseViewBuilder {
 
         mGradientPaint.setShader(mBgShader);
         drawCancas(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius, bottomRightRadius, mGradientPaint);
-        drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, mSuper.getShadowStyle().getBackground(), mBackGroundPaint);
+        if(mSuper.getGradientStyle().getBackgroundGradientColor().size()<3){
+            drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, null, mBackGroundPaint);
+            drawBackGround(canvas, rectf, topLeftRadius, topRightRadius, bottomLeftRadius , bottomRightRadius, mSuper.getShadowStyle().getBackground(), mBackGroundPaint);
+        }
 
         final float sHeight = rectf.bottom - rectf.top;
         rectf.left += borderSize / 2f;
@@ -297,7 +302,6 @@ public abstract class BaseViewBuilder {
 
 
     private void drawCancas(Canvas canvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, Paint roundPaint) {
-
         float height = rectf.bottom - rectf.top;
         float width = rectf.right - rectf.left;
         float standard = width;
@@ -329,7 +333,6 @@ public abstract class BaseViewBuilder {
     }
 
     private void drawBorder(Canvas canvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, float borderSize, Paint roundPaint) {
-
         float height = rectf.bottom - rectf.top;
         float width = rectf.right - rectf.left;
         float standard = width;
@@ -432,7 +435,6 @@ public abstract class BaseViewBuilder {
     }
 
     private void drawBackGround(Canvas parentCanvas, RectF rectf, float topLeftRadius, float topRightRadius, float bottomLeftRadius, float bottomRightRadius, Drawable background, Paint paint) {
-
         float height =rectf.bottom - rectf.top;
         float width = rectf.right - rectf.left;
         float standard = width;
@@ -454,7 +456,13 @@ public abstract class BaseViewBuilder {
             mTopRightRadius = mTopRightRadius * ratio;
             mBottomRightRadius = mBottomRightRadius * ratio;
         }
-        Bitmap bitmap = DrawableToBitmap(background);
+
+        Bitmap bitmap = null;
+        if(background==null){
+            bitmap = DrawableToBitmap(new ColorDrawable(Color.parseColor("#000000")));
+        }else{
+            bitmap = DrawableToBitmap(background);
+        }
 
         int bmpWidth = bitmap.getWidth();
         int bmpHeight = bitmap.getHeight();
@@ -499,9 +507,12 @@ public abstract class BaseViewBuilder {
             path.close();
             canvas.drawPath(path, paint);
         }
-
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+        if(background==null){
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.XOR));
+            parentCanvas.drawBitmap(output, rectf.left, rectf.top, paint);
+        }
     }
     public static Bitmap DrawableToBitmap(Drawable drawable) {
 

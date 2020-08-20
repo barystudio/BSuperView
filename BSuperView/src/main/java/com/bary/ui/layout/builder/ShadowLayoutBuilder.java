@@ -55,7 +55,7 @@ public class ShadowLayoutBuilder extends BaseLayoutBuilder implements IShadowInt
         //y轴偏移量
         mShadowDy = attr.getDimension(getStyleableId("bsv_shadowDy"), 0);
         //阴影颜色
-        mShadowColor = attr.getColor(getStyleableId("bsv_shadowColor"), mView.getResources().getColor(R.color.bsv_black));
+        mShadowColor = attr.getColor(getStyleableId("bsv_shadowColor"), Color.BLACK);
         //阴影透明度
         mShadowAlpha = attr.getFloat(getStyleableId("bsv_shadowAlpha"), 1);
         //背景图
