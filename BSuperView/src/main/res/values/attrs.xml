@@ -146,5 +146,72 @@
         <attr name="bsv_borderColor" />
         <attr name="bsv_borderHideEdges" />
     </declare-styleable>
+    <declare-styleable name="BRelativeLayout">
+        <attr name="android:background" />
+
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
+    </declare-styleable>
+    <declare-styleable name="BFrameLayout">
+        <attr name="android:background" />
+
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
+    </declare-styleable>
+
+    <declare-styleable name="BConstraintLayout">
+        <attr name="android:background" />
+
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
+    </declare-styleable>
 
 </resources>
