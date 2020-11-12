@@ -74,6 +74,15 @@
         <enum name = "sweep" value = "4" />
     </attr>
 
+    <attr name="bsv_leftIcon" format="reference" />
+    <attr name="bsv_leftIconWidth" format="dimension" />
+    <attr name="bsv_leftIconHeight" format="dimension" />
+    <attr name="bsv_leftIconPadding" format="dimension" />
+    <attr name="bsv_rightIcon" format="reference" />
+    <attr name="bsv_rightIconWidth" format="dimension" />
+    <attr name="bsv_rightIconHeight" format="dimension" />
+    <attr name="bsv_rightIconPadding" format="dimension" />
+
     <declare-styleable name="BEditText">
         <attr name="android:background" />
         <attr name="bsv_backgroundGradientColor" />
@@ -113,15 +122,81 @@
         <attr name="bsv_showSecretIcon" format="boolean" />
         <attr name="bsv_secretIconVisible" format="reference" />
         <attr name="bsv_secretIcoInvisible" format="reference" />
-        <attr name="bsv_leftIcon" format="reference" />
-        <attr name="bsv_leftIconWidth" format="dimension" />
-        <attr name="bsv_leftIconHeight" format="dimension" />
-        <attr name="bsv_leftIconPadding" format="dimension" />
-        <attr name="bsv_rightIcon" format="reference" />
-        <attr name="bsv_rightIconWidth" format="dimension" />
-        <attr name="bsv_rightIconHeight" format="dimension" />
-        <attr name="bsv_rightIconPadding" format="dimension" />
+        <attr name="bsv_leftIcon" />
+        <attr name="bsv_leftIconWidth" />
+        <attr name="bsv_leftIconHeight"  />
+        <attr name="bsv_leftIconPadding"  />
+        <attr name="bsv_rightIcon" />
+        <attr name="bsv_rightIconWidth" />
+        <attr name="bsv_rightIconHeight"  />
+        <attr name="bsv_rightIconPadding"  />
 
+    </declare-styleable>
+    <declare-styleable name="BTextView">
+        <attr name="android:background" />
+        <attr name="bsv_backgroundGradientColor" />
+        <attr name="bsv_backgroundGradientOrientation" />
+        <attr name="bsv_backgroundGradientType" />
+        <attr name="bsv_textGradientColor" />
+        <attr name="bsv_textGradientOrientation" />
+        <attr name="bsv_textGradientType" />
+
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
+
+        <attr name="bsv_leftIcon" />
+        <attr name="bsv_leftIconWidth" />
+        <attr name="bsv_leftIconHeight"  />
+        <attr name="bsv_leftIconPadding"  />
+        <attr name="bsv_rightIcon" />
+        <attr name="bsv_rightIconWidth" />
+        <attr name="bsv_rightIconHeight"  />
+        <attr name="bsv_rightIconPadding"  />
+
+    </declare-styleable>
+    <declare-styleable name="BImageView">
+        <attr name="android:background" />
+        <attr name="bsv_backgroundGradientColor" />
+        <attr name="bsv_backgroundGradientOrientation" />
+        <attr name="bsv_backgroundGradientType" />
+        <attr name="bsv_textGradientColor" />
+        <attr name="bsv_textGradientOrientation" />
+        <attr name="bsv_textGradientType" />
+
+        <attr name="bsv_roundRadius" />
+        <attr name="bsv_topLeftRadius" />
+        <attr name="bsv_topRightRadius" />
+        <attr name="bsv_bottomLeftRadius" />
+        <attr name="bsv_bottomRightRadius" />
+
+        <attr name="bsv_shadowHideEdges" />
+        <attr name="bsv_shadowSize" />
+        <attr name="bsv_shadowXSize" />
+        <attr name="bsv_shadowYSize" />
+        <attr name="bsv_shadowColor" />
+        <attr name="bsv_shadowAlpha" />
+        <attr name="bsv_shadowDx" />
+        <attr name="bsv_shadowDy" />
+
+        <attr name="bsv_borderSize" />
+        <attr name="bsv_borderColor" />
+        <attr name="bsv_borderHideEdges" />
     </declare-styleable>
 
     <declare-styleable name="BLinearLayout">

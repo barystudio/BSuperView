@@ -8,7 +8,7 @@ import android.os.Build;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 
-import androidx.appcompat.widget.AppCompatEditText;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 
@@ -37,30 +37,29 @@ import java.util.List;
  * author Bary
  * create at 2020/1/21 11:27
  */
-public class BTextView extends AppCompatTextView implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperViewInterface, IStyleInterface {
+public class BImageView extends AppCompatImageView implements IShadowInterface, IBorderInterface, IRoundInterface, IGradientInterface, ISuperViewInterface {
     private RoundViewBuilder mRoundBuilder;
     private ShadowViewBuilder mShadowBuilder;
     private BorderViewBuilder mBorderBuilder;
     private GradientViewBuilder mGradientBuilder;
-    private StyleViewBuilder mStyleBuilder;
 
     private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
 
-    public BTextView(Context context) {
+    public BImageView(Context context) {
         this(context, null);
     }
 
-    public BTextView(Context context, AttributeSet attrs) {
+    public BImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public BTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public BImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaddingLeft = getPaddingLeft();
         mPaddingRight = getPaddingRight();
         mPaddingTop = getPaddingTop();
         mPaddingBottom = getPaddingBottom();
-        TypedArray attr = context.obtainStyledAttributes(attrs, R.styleable.BTextView);
+        TypedArray attr = context.obtainStyledAttributes(attrs, R.styleable.BImageView);
         try {
             // 初始化阴影样式
             mShadowBuilder = new ShadowViewBuilder(this, this);
@@ -70,14 +69,11 @@ public class BTextView extends AppCompatTextView implements IShadowInterface, IB
             mRoundBuilder = new RoundViewBuilder(this, this);
             // 初始化渐变样式
             mGradientBuilder = new GradientViewBuilder(this, this);
-            // 初始化主题样式
-            mStyleBuilder = new StyleViewBuilder(this, this);
 
             mShadowBuilder.initAttributes(attr);
             mBorderBuilder.initAttributes(attr);
             mRoundBuilder.initAttributes(attr);
             mGradientBuilder.initAttributes(attr);
-            mStyleBuilder.initAttributes(attr);
 
         } finally {
             attr.recycle();
@@ -340,65 +336,6 @@ public class BTextView extends AppCompatTextView implements IShadowInterface, IB
     }
 
 
-    @Override
-    public void setEditMode(EditMode mode) {
-        mStyleBuilder.setEditMode(mode);
-    }
-
-    @Override
-    public void showClearIcon(boolean show) {
-        mStyleBuilder.showClearIcon(show);
-    }
-
-    @Override
-    public void showSecretIcon(boolean show) {
-        mStyleBuilder.showSecretIcon(show);
-    }
-
-    @Override
-    public void setSecretIcon(int visibeIcon, int invisibeIcon) {
-        mStyleBuilder.setSecretIcon(visibeIcon,invisibeIcon);
-    }
-
-    @Override
-    public void setClearIcon(int res) {
-        mStyleBuilder.setClearIcon(res);
-    }
-
-    @Override
-    public void addLeftIcon(Drawable drawable, int width, int height, int padding, OnClickListener listener) {
-        mStyleBuilder.addLeftIcon(drawable, width, height, padding, listener);
-    }
-
-    @Override
-    public void addRightIcon(Drawable drawable, int width, int height, int padding, OnClickListener listener) {
-        mStyleBuilder.addRightIcon(drawable, width, height, padding, listener);
-    }
-
-    @Override
-    public void setOnLeftIconClickListener(OnClickListener listener) {
-        mStyleBuilder.setOnLeftIconClickListener(listener);
-    }
-
-    @Override
-    public void setOnRightIconClickListener(OnClickListener listener) {
-        mStyleBuilder.setOnRightIconClickListener(listener);
-    }
-
-    @Override
-    public void addNewTextChangedListener(TextWatcher watcher) {
-        mStyleBuilder.addNewTextChangedListener(watcher);
-    }
-
-    @Override
-    public void setNewOnTouchListener(OnTouchListener listener) {
-        mStyleBuilder.setNewOnTouchListener(listener);
-    }
-
-    @Override
-    public void setNewOnFocusChangeListener(OnFocusChangeListener listener) {
-        mStyleBuilder.setNewOnFocusChangeListener(listener);
-    }
 
     @Override
     public void setBackgroundResource(int resid) {

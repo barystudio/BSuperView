@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     fun showBEditText(v: View) {
         startActivity(Intent(this,BEditTextActivity::class.java))
     }
+    fun showBImageView(v: View) {
+        startActivity(Intent(this,BImageViewActivity::class.java))
+    }
     fun showBLinearLayout(v: View) {
         startActivity(Intent(this,BLinearLayoutActivity::class.java))
     }

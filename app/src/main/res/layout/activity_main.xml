@@ -49,7 +49,19 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="2、BXXXLayout-各种Layout容器"
+            android:text="2、BImageView-通用图片控件"
+            android:textSize="15dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/bsv_black"
+            android:background="#ffffff"
+            android:onClick="showBImageView"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="3、BXXXLayout-各种Layout容器"
             android:textSize="15dp"
             android:gravity="center_vertical"
             android:paddingLeft="20dp"

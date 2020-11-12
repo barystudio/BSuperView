@@ -47,21 +47,18 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
-        <com.bary.ui.view.BEditText
-            android:id="@+id/mBEditText"
+        <com.bary.ui.view.BImageView
+            android:id="@+id/mBImageView"
             android:layout_width="300dp"
             android:layout_height="70dp"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:hint="请输入..."
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
             android:textColorHint="@color/bsv_black"
-            app:bsv_roundRadius="30px"
-            android:background="@color/colorPrimary"
+            app:bsv_roundRadius="40px"
+            android:background="@drawable/image_bg"
            >
 
-        </com.bary.ui.view.BEditText>
+        </com.bary.ui.view.BImageView>
 
     </RelativeLayout>
 
@@ -793,170 +790,7 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <View style="@style/HorizontalLine" />
-            <LinearLayout
-                android:id="@+id/auxiliaryTitleLayout"
-                android:layout_width="match_parent"
-                android:layout_height="120px"
-                android:orientation="horizontal"
-                android:paddingLeft="45px"
-                android:paddingRight="45px">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:text="辅助功能 :"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/auxiliaryTitleIv"
-                    android:layout_width="60px"
-                    android:layout_height="60px"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/test_open_select" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/auxiliaryInfoLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_marginRight="30px"
-                android:layout_marginBottom="30px"
-                android:background="#f9f9f9"
-                android:orientation="vertical"
-                android:padding="45px"
-                android:visibility="gone">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="显示一键清除 :" />
-
-                    <ImageView
-                        android:id="@+id/auxiliary_clear"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="30px"
-                        android:background="@drawable/test_customview_cb_select" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="显示隐藏内容 :" />
-
-                    <ImageView
-                        android:id="@+id/auxiliary_secret"
-                        android:layout_width="50px"
-                        android:layout_height="50px"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="30px"
-                        android:background="@drawable/test_customview_cb_select" />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="添加两侧图标 :" />
-
-                    <TextView
-                        android:id="@+id/auxiliary_icon_left"
-                        android:layout_width="150px"
-                        android:layout_height="70px"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_marginLeft="30px"
-                        android:text="左侧"
-                        android:background="@drawable/ic_launcher_background"
-                        />
-
-                    <TextView
-                        android:id="@+id/auxiliary_icon_right"
-                        android:layout_width="150px"
-                        android:layout_height="70px"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
-                        android:layout_marginLeft="30px"
-                        android:text="右侧"
-                        android:background="@drawable/ic_launcher_background"
-                        />
-
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15px"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="编辑模式 :" />
-
-                    <RadioGroup
-                        android:id="@+id/auxiliary_editmode"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_normal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:checked="true"
-                            android:text="普通模式"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_uneditable"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="不可编辑模式"
-                            android:textColor="#666666" />
-
-                        <RadioButton
-                            android:id="@+id/auxiliary_editmode_nokeyboard"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="可编辑不弹输入法\n（有光标，一般用在语音录入）"
-                            android:textColor="#666666" />
-                    </RadioGroup>
-
-
-                </LinearLayout>
-
-            </LinearLayout>
             <View style="@style/HorizontalLine" />
             <TextView android:layout_width="match_parent"
                 android:layout_height="100dp"
