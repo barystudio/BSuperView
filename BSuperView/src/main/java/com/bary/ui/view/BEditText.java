@@ -5,7 +5,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.SpannedString;
 import android.text.TextWatcher;
+import android.text.style.AbsoluteSizeSpan;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -86,7 +90,12 @@ public class BEditText extends AppCompatEditText implements IShadowInterface, IB
         setFocusableInTouchMode(true);
     }
 
-
+    public void setHintSize(int size){
+        SpannableString ss = new SpannableString(getHint());//定义hint的值
+        AbsoluteSizeSpan ass = new AbsoluteSizeSpan(size,false);//设置字体大小 true表示单位是sp
+        ss.setSpan(ass, 0, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        setHint(new SpannedString(ss));
+    }
 
     @Override
     public float getRoundRadius() {
