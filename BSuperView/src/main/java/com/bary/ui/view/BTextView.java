@@ -3,11 +3,23 @@ package com.bary.ui.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.ImageSpan;
+import android.text.style.StyleSpan;
+import android.text.style.SubscriptSpan;
+import android.text.style.SuperscriptSpan;
+import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 
+import androidx.annotation.ColorRes;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
@@ -43,7 +55,8 @@ public class BTextView extends AppCompatTextView implements IShadowInterface, IB
     private BorderViewBuilder mBorderBuilder;
     private GradientViewBuilder mGradientBuilder;
     private StyleViewBuilder mStyleBuilder;
-
+    private SpannableStringBuilder builder;
+    private ForegroundColorSpan colorSpan;
     private int mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom;
 
     public BTextView(Context context) {
@@ -86,6 +99,68 @@ public class BTextView extends AppCompatTextView implements IShadowInterface, IB
         setFocusableInTouchMode(true);
     }
 
+    public TextStyleBuild appendText(CharSequence text) {
+        if(builder==null){
+            builder = new SpannableStringBuilder();
+        }
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(getCurrentTextColor());
+        builder.append(text,colorSpan,Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        setText(builder);
+        TextStyleBuild styleBuild = new TextStyleBuild(text);
+        styleBuild.withSize(getTextSize());
+        return styleBuild;
+    }
+
+    public class TextStyleBuild{
+        private CharSequence mText;
+        public TextStyleBuild(CharSequence text) {
+            mText = text;
+        }
+
+        //颜色
+        public TextStyleBuild withColor(@ColorRes int color){
+            return setSpan(new ForegroundColorSpan(ContextCompat.getColor(getContext(),color)));
+        }
+        //背景颜色
+        public TextStyleBuild withBackgroundColor(@ColorRes int color){
+            return setSpan(new BackgroundColorSpan(ContextCompat.getColor(getContext(),color)));
+        }
+        //字号
+        public TextStyleBuild withSize(float size){
+            return setSpan(new AbsoluteSizeSpan((int) size));
+        }
+        //加粗
+        public TextStyleBuild withBold(){
+            return setSpan(new StyleSpan(Typeface.BOLD));
+        }
+        //倾斜
+        public TextStyleBuild withItalic(){
+            return setSpan(new StyleSpan(Typeface.ITALIC));
+        }
+        //下划线
+        public TextStyleBuild withUnderline(){
+            return setSpan(new UnderlineSpan());
+        }
+        //上标
+        public TextStyleBuild withSuperscript(){
+            return setSpan(new SuperscriptSpan());
+        }
+        //下标
+        public TextStyleBuild withSubscript(){
+            return setSpan(new SubscriptSpan());
+        }
+        //图片
+        public TextStyleBuild withImage(Drawable drawable, int width, int height){
+            drawable.setBounds(0, 0, width, height);
+            return setSpan( new ImageSpan(drawable));
+        }
+
+        private TextStyleBuild setSpan(Object what){
+            builder.setSpan(what,getText().length()-mText.length(),getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            setText(builder);
+            return this;
+        }
+    }
 
 
     @Override
